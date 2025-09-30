@@ -21,9 +21,22 @@ const show = async (journalId) => {
         console.log(error)
     }
 }
-
+const create = async (journalFormData) => {
+    try {
+        const res = await fetch(BASE_URL, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'},
+            body: JSON.stringify(journalFormData)
+        })
+        return res.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export {
     index,
     show,
+    create
 }

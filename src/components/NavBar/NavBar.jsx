@@ -5,6 +5,7 @@ const NavBar = () => {
                 <ul>
                     <li><Link to='/'>Dashboard</Link></li>
                     <li><Link to='/journal'>My Journals</Link></li>
+                    <li><Link to='/journal/new'>Create a New Entry</Link></li>
                     <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
                 </ul>
             ) : (

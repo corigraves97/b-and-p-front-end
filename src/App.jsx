@@ -1,15 +1,17 @@
 import { useState, useContext, useEffect } from 'react'
-import {Route, Routes } from 'react-router'
+import {Route, Routes, useNavigate } from 'react-router'
 import JournalList from './components/JournalList/JournalList'
 import HomePage from './components/HomePage/HomePage'
 import SignUpForm from './components/SignUpForm/SignUpForm'
 import SignInForm from './components/SignInForm/SignInForm'
 import NavBar from './components/NavBar/NavBar'
 import JournalDetails from './components/JournalDetails/JournalDetails'
+import JournalForm from './components/JournalForm/JournalForm'
 import * as journalService from './services/journalService'
 import './App.css'
 
 function App() {
+  const navigate = useNavigate()
   const [journals, setJournals] = useState([])
   useEffect(() => {
     const fetchAllJournals = async () => {
@@ -18,6 +20,11 @@ function App() {
     }
     if (user) fetchAllJournals()
   }, [user])
+
+  const handleAddJournal = async (journalFormData) => {
+    console.log('journalFormData', journalFormData)
+    navigate('/journal')
+  }
   return (
     <>
       <NavBar />
@@ -28,8 +35,7 @@ function App() {
             <Route path='/journal' element={<JournalList journals={journals}/>} />
             <Route 
               path='/journal/:journalId' element={<JournalDetails />}/>
-              element={<HootDetails />}
-            />
+              <Route path='journal/new' element={<JournalForm handleAddJournal={handleAddJournal} />} />
           </>
         ) : (
           <>
