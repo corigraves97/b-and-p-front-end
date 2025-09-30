@@ -1,4 +1,4 @@
-const Sign In Form = () => {
+const SignInForm = () => {
     return (
         <main>
             <h1>Welcome to Bull & Paper</h1>
