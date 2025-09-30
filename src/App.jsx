@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import {Route, Routes, useNavigate } from 'react-router'
 import JournalList from './components/JournalList/JournalList'
-import HomePage from './components/Landing/Landing'
+import Landing from './components/Landing/Landing'
 import SignUpForm from './components/SignUpForm/SignUpForm'
 import SignInForm from './components/SignInForm/SignInForm'
 import NavBar from './components/NavBar/NavBar'
@@ -40,7 +40,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path='/' element={user? <Dashboard /> : <HomePage />}/>
+        <Route path='/' element={user? <Dashboard /> : <Landing />}/>
         {user ? (
           <>
             <Route path='/journal' element={<JournalList journals={journals}/>} />

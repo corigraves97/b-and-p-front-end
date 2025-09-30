@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 
-const HootList = (props) => {
+const JournalList = (props) => {
     return (
         <main>
             {props.journals.map((journal) => (
@@ -20,4 +20,4 @@ const HootList = (props) => {
   )
 }
 
-export default HootList
+export default JournalList
