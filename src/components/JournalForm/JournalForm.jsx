@@ -10,17 +10,17 @@ const JournalForm = (props) => {
     //console.log(journalId)
     const [formData, setFormData] = useState({
         symbol: '',
-        side: '',
+        side: 'long',
         timeOfDay: '',
         shareSize: '',
         entry: '',
         exit: '',
-        volume: '',
+        volume: '1m-5m',
         fees: '',
         executedDay: '',
         meta: '',
         notes: '',
-        marketSnapshot: '',
+        marketSnapshot: { symbol: '' },
     });
 
     const handleChange = (evt) => {
@@ -28,10 +28,18 @@ const JournalForm = (props) => {
     };
 
     const handleSubmit = (evt) => {
-        evt.preventDefault();
-        props.handleAddJournal(formData)
-        // We'll update this function shortly...
-    };
+        evt.preventDefault()
+        const formattedData = {
+            ...formData,
+            timeOfDay: new Date(formData.timeOfDay),
+            executedDay: new Date(formData.executedDay),
+            shareSize: Number(formData.shareSize),
+            entry: Number(formData.entry),
+            exit: Number(formData.exit),
+            fees: formData.fees ? Number(formData.fees) : 0
+        }
+        props.handleAddJournal(formattedData)
+    }
     /*useEffect(() => {
         const fetchJournal = async () => {
             const journalData = await journalService.show(journalId)
@@ -54,7 +62,7 @@ const JournalForm = (props) => {
     }, [journalId])*/
     return (
         <main>
-            <h1>{journalId ? 'Edit Entry' : 'New Entry' }</h1>
+            <h1>{journalId ? 'Edit Entry' : 'New Entry'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor='symbol'>Symbol:</label>
                 <input
@@ -68,13 +76,12 @@ const JournalForm = (props) => {
                 <label htmlFor='side'>Side:</label>
                 <select
                     required
-                    name='side'
-                    id='side-input'
+                    name="side"
                     value={formData.side}
                     onChange={handleChange}
                 >
-                    <option value='Long'>Long</option>
-                    <option value='Short'>Short</option>
+                    <option value="long">Long</option>
+                    <option value="short">Short</option>
                 </select>
                 <label htmlFor='timeOfDay'>Time Of Day:</label>
                 <input
@@ -115,19 +122,18 @@ const JournalForm = (props) => {
                 <label htmlFor='volume'>Volume:</label>
                 <select
                     required
-                    name='volume'
-                    id='volume-input'
+                    name="volume"
                     value={formData.volume}
                     onChange={handleChange}
                 >
-                    <option value='1m-5m'>1m-5m</option>
-                    <option value='10m-20m'>10m-20m</option>
-                    <option value='30m-40m'>30m-40m</option>
-                    <option value='50m-70m'>50m-70m</option>
-                    <option value='80m-100m'>80m-100m</option>
-                    <option value='120m-150m'>120m-150m</option>
-                    <option value='160m-180m'>1m-5m</option>
-                    <option value='200m+'>200m+</option>
+                    <option value="1m - 5m">1m - 5m</option>
+                    <option value="10m - 20m">10m - 20m</option>
+                    <option value="30m - 40m">30m - 40m</option>
+                    <option value="50m - 70m">50m - 70m</option>
+                    <option value="80m - 100m">80m - 100m</option>
+                    <option value="120m - 150m">120m - 150m</option>
+                    <option value="160m - 180m">160m - 180m</option>
+                    <option value="200+m">200+m</option>
                 </select>
                 <label htmlFor='fees'>Fees:</label>
                 <input
@@ -164,6 +170,20 @@ const JournalForm = (props) => {
                     id='notes-input'
                     value={formData.notes}
                     onChange={handleChange}
+                />
+                <label htmlFor='market-snapshot'>Market-Snapshot Symbol:</label>
+                <input
+                    required
+                    type='text'
+                    name='marketSnapshot.symbol' // dot notation to match nested object
+                    id='marketSnapshot-input'
+                    value={formData.marketSnapshot.symbol || ''}
+                    onChange={(evt) =>
+                        setFormData({
+                            ...formData,
+                            meta: { strategyTag: evt.target.value }
+                        })
+                    }
                 />
                 <button type='submit'>Create Entry!</button>
             </form>

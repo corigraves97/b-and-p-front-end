@@ -29,9 +29,12 @@ const create = async (journalFormData) => {
                 'Content-Type': 'application/json'},
             body: JSON.stringify(journalFormData)
         })
-        return res.json()
+        const data = await res.json()
+        if(!res.ok) throw new Error(data.err || 'Failed to create journal')
+        return data
     } catch (error) {
         console.log(error)
+        return null
     }
 }
 

@@ -27,6 +27,7 @@ function App() {
 
   const handleAddJournal = async (journalFormData) => {
     const newJournal = await journalService.create(journalFormData)
+    if(!newJournal) return
     setJournals([newJournal, ...journals])
     navigate('/journal')
   }
