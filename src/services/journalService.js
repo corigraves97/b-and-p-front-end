@@ -23,7 +23,7 @@ const show = async (journalId) => {
 }
 const create = async (journalFormData) => {
     try {
-        const res = await fetch(BASE_URL, {
+        const res = await fetch(`${BASE_URL}/new`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json'},
@@ -35,7 +35,7 @@ const create = async (journalFormData) => {
     }
 }
 
-const deleteJournal = async (hootId) => {
+const deleteJournal = async (journalId) => {
   try {
     const res = await fetch(`${BASE_URL}/${journalId}`, {
       method: 'DELETE',

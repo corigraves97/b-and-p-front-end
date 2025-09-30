@@ -1,5 +1,5 @@
 
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/new`
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/journal`
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router'
@@ -7,7 +7,7 @@ import * as journalService from '../../services/journalService'
 
 const JournalForm = (props) => {
     const { journalId } = useParams()
-    console.log(journalId)
+    //console.log(journalId)
     const [formData, setFormData] = useState({
         symbol: '',
         side: '',
@@ -32,7 +32,7 @@ const JournalForm = (props) => {
         props.handleAddJournal(formData)
         // We'll update this function shortly...
     };
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchJournal = async () => {
             const journalData = await journalService.show(journalId)
             setFormData(journalData)
@@ -51,7 +51,7 @@ const JournalForm = (props) => {
         meta: '',
         notes: '',
         marketSnapshot: '',})
-    }, [journalId])
+    }, [journalId])*/
     return (
         <main>
             <h1>{journalId ? 'Edit Entry' : 'New Entry' }</h1>
@@ -62,7 +62,7 @@ const JournalForm = (props) => {
                     type='text'
                     name='symbol'
                     id='symbol-input'
-                    value={formData.title}
+                    value={formData.symbol}
                     onChange={handleChange}
                 />
                 <label htmlFor='side'>Side:</label>
@@ -70,7 +70,7 @@ const JournalForm = (props) => {
                     required
                     name='side'
                     id='side-input'
-                    value={formData.category}
+                    value={formData.side}
                     onChange={handleChange}
                 >
                     <option value='Long'>Long</option>
@@ -82,7 +82,7 @@ const JournalForm = (props) => {
                     type='text'
                     name='timeOfDay'
                     id='tod-input'
-                    value={formData.title}
+                    value={formData.timeOfDay}
                     onChange={handleChange}
                 />
                 <label htmlFor='shareSize'>Share Size:</label>
@@ -91,7 +91,7 @@ const JournalForm = (props) => {
                     type='text'
                     name='shareSize'
                     id='shareSize-input'
-                    value={formData.title}
+                    value={formData.shareSize}
                     onChange={handleChange}
                 />
                 <label htmlFor='entry'>Entry:</label>
@@ -100,7 +100,7 @@ const JournalForm = (props) => {
                     type='text'
                     name='entry'
                     id='entry-input'
-                    value={formData.title}
+                    value={formData.entry}
                     onChange={handleChange}
                 />
                 <label htmlFor='exit'>Exit:</label>
@@ -109,15 +109,15 @@ const JournalForm = (props) => {
                     type='text'
                     name='exit'
                     id='exit-input'
-                    value={formData.title}
+                    value={formData.exit}
                     onChange={handleChange}
                 />
-                <label htmlFor='side'>Volume:</label>
+                <label htmlFor='volume'>Volume:</label>
                 <select
                     required
                     name='volume'
                     id='volume-input'
-                    value={formData.category}
+                    value={formData.volume}
                     onChange={handleChange}
                 >
                     <option value='1m-5m'>1m-5m</option>
@@ -135,7 +135,7 @@ const JournalForm = (props) => {
                     type='text'
                     name='fees'
                     id='fees-input'
-                    value={formData.title}
+                    value={formData.fees}
                     onChange={handleChange}
                 />
                 <label htmlFor='executedDay'>Executed Day:</label>
@@ -144,7 +144,7 @@ const JournalForm = (props) => {
                     type='text'
                     name='executedDay'
                     id='executedDay-input'
-                    value={formData.title}
+                    value={formData.executedDay}
                     onChange={handleChange}
                 />
                 <label htmlFor='meta'>Meta:</label>
@@ -153,16 +153,16 @@ const JournalForm = (props) => {
                     type='text'
                     name='meta'
                     id='meta-input'
-                    value={formData.title}
+                    value={formData.meta}
                     onChange={handleChange}
                 />
-                <label htmlFor='notes'>Exit:</label>
-                <input
+                <label htmlFor='notes'>Notes:</label>
+                <textarea
                     required
                     type='text'
                     name='notes'
                     id='notes-input'
-                    value={formData.title}
+                    value={formData.notes}
                     onChange={handleChange}
                 />
                 <button type='submit'>Create Entry!</button>
