@@ -1,3 +1,4 @@
+
 const SignUpForm = () => {
     return (
         <main>
@@ -8,3 +9,4 @@ const SignUpForm = () => {
 }
 
 export default SignUpForm
+

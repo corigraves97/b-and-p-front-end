@@ -1,4 +1,5 @@
-const Sign In Form = () => {
+
+const SignInForm = () => {
     return (
         <main>
             <h1>Welcome to Bull & Paper</h1>
@@ -8,3 +9,4 @@ const Sign In Form = () => {
 }
 
 export default SignInForm
+
