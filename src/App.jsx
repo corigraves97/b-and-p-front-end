@@ -1,33 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useContext, useEffect } from 'react'
+import {Route, Routes } from 'react-router'
+import JournalList from './components/JournalList/JournalList'
+import HomePage from './components/HomePage/HomePage'
+import SignUpForm from './components/SignUpForm/SignUpForm'
+import SignInForm from './components/SignInForm/SignInForm'
+import NavBar from './components/NavBar/NavBar'
+import * as journalService from './services/journalService'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [journals, setJournals] = useState([])
+  useEffect(() => {
+    const fetchAllJournals = async () => {
+      const journalsData = await journalService.index()
+      setJournals(journalsData)
+    }
+    if (user) fetchAllJournals()
+  }, [user])
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NavBar />
+      <Routes>
+        <Route path = '/' element={user? <Dashboard /> : <HomePage />}/>
+        {user ? (
+          <>
+            <Route path='/journal' element={<JournalList journals={journals}/>} />
+          </>
+        ) : (
+          <>
+            <Route path='/sign-up' element={<SignUpForm />}/>
+            <Route path='/sign-in' element={<SignInForm />} />
+          </>
+        )}
+      </Routes>
     </>
   )
 }
