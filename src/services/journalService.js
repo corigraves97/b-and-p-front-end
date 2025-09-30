@@ -35,8 +35,23 @@ const create = async (journalFormData) => {
     }
 }
 
+const deleteJournal = async (hootId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${journalId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
     index,
     show,
-    create
+    create,
+    deleteJournal,
 }

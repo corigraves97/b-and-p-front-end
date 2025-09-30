@@ -1,10 +1,12 @@
-import { useParams } from 'react-router'
-import { useState, useEffect } from 'react'
-import * as journalService from '../../services/journalService'
 
-const JournalDetails = () => {
+import { useParams, Link } from 'react-router'
+import { useState, useEffect, useContext } from 'react'
+import * as journalService from '../../services/journalService'
+import { UserContext } from '../../contexts/UserContext'
+
+const JournalDetails = (props) => {
     const { journalId } = useParams()
-    console.log('journalId', journalId)
+    const { user } = useContext(UserContext)
     const [journal, setJournal] = useState(null)
     useEffect(() => {
         const fetchJournal = async () => {
@@ -31,6 +33,8 @@ const JournalDetails = () => {
                     <p>{journal.meta}</p>
                     <p>{journal.notes}</p>
                     <p>{journal.marketSnapshot}</p>
+                    <Link to= {`/journal/${journalId}/edit`}>Edit Entry</Link>
+                    <button onClick={() => props.handleDeleteJournal(journalId)}>Delete</button>
                 </header>
             </section>
         </main>
