@@ -11,7 +11,19 @@ const index = async () => {
     }
 }
 
+const show = async (journalId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${journalId}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+        return res.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 export {
     index,
+    show,
 }

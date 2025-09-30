@@ -5,6 +5,7 @@ import HomePage from './components/HomePage/HomePage'
 import SignUpForm from './components/SignUpForm/SignUpForm'
 import SignInForm from './components/SignInForm/SignInForm'
 import NavBar from './components/NavBar/NavBar'
+import JournalDetails from './components/JournalDetails/JournalDetails'
 import * as journalService from './services/journalService'
 import './App.css'
 
@@ -25,6 +26,10 @@ function App() {
         {user ? (
           <>
             <Route path='/journal' element={<JournalList journals={journals}/>} />
+            <Route 
+              path='/journal/:journalId' element={<JournalDetails />}/>
+              element={<HootDetails />}
+            />
           </>
         ) : (
           <>
