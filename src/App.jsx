@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import {Route, Routes, useNavigate } from 'react-router'
 import JournalList from './components/JournalList/JournalList'
-import HomePage from './components/HomePage/HomePage'
+import HomePage from './components/Landing/Landing'
 import SignUpForm from './components/SignUpForm/SignUpForm'
 import SignInForm from './components/SignInForm/SignInForm'
 import NavBar from './components/NavBar/NavBar'

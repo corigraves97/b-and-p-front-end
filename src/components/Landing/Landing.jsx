@@ -1,4 +1,4 @@
-const HomePage = () => {
+const Landing = () => {
     return (
         <main>
             <h1>Welcome to Bull & Paper</h1>
@@ -7,4 +7,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default Landing
