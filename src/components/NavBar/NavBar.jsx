@@ -15,7 +15,7 @@ const NavBar = () => {
                     <li><Link to='/sign-up'>SIGN UP</Link></li>
                 </ul>
             )}
-        </nav>>  
+        </nav>  
     )
 }
 
