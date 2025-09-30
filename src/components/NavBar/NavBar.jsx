@@ -1,4 +1,13 @@
+
+import { useContext } from 'react'
+import { Link } from 'react-router'
+import { UserContext } from '../../contexts/UserContext'
 const NavBar = () => {
+    const { user } = useContext(UserContext)
+    const handleSignOut = () => {
+        localStorage.removeItem('token')
+        setUser(null)
+    }
     return (
         <nav>
             { user ? (
@@ -15,8 +24,7 @@ const NavBar = () => {
                     <li><Link to='/sign-up'>SIGN UP</Link></li>
                 </ul>
             )}
-        </nav>>  
-    )
-}
+        </nav>
+    )}
 
 export default NavBar
