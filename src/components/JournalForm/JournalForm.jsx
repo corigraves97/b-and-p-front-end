@@ -1,11 +1,14 @@
 import axios from 'axios'
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/journal`
-
+import './form.css'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router'
 import * as journalService from '../../services/journalService'
 
 const JournalForm = (props) => {
+    // props is {handleAddJournal}
+    // if editing, we will also have journalId in the url params
+    
     const { journalId } = useParams()
     const [ marketView, setMarketView ] = useState(null)
     //console.log(journalId)

@@ -1,4 +1,6 @@
 // src/components/Dashboard/Dashboard.jsx
+import { StyleSheet, Text, View } from 'react';
+import'./dashboard.css';
 
 import { useEffect, useContext } from 'react';
 
@@ -9,25 +11,17 @@ import * as userService from '../../services/userService';
 const Dashboard = () => {
   const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const fetchedUsers = await userService.index();
-        //console.log(fetchedUsers);
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    if (user) fetchUsers();
-  }, [user]);
+ 
 
   return (
-    <main>
-      <h1>Welcome, {user.username}</h1>
-      <p>
-        Woo!
-      </p>
-    </main>
+    <body className="dashboard-body">
+    <section className="dashboard-wrapper">
+      <h1 className="dashboard-header">Dashboard</h1>
+      <div className="dashboard-cardsGrid">
+        {/* Dashboard content goes here */}
+      </div>
+    </section>
+    </body>
   );
 };
 
