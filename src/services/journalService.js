@@ -56,6 +56,7 @@ const deleteJournal = async (journalId) => {
   }
 }
 
+//update
 async function update(journalId, journalFormData) {
   try {
     const res = await fetch(`${BASE_URL}/${journalId}`, {

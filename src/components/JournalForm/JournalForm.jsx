@@ -34,12 +34,25 @@ const JournalForm = (props) => {
     
 
     useEffect(() => {
-        try{ 
-            axios.get('http://localhost:3000/api/shares')
-        } catch (err) {
-            console.log(err)
-        }
-    })
+  try { 
+    axios.get('http://localhost:3000/api/shares')
+  } catch (err) {
+    console.log(err)
+  }
+
+  const fetchJournal = async () => {
+    if (journalId) {
+      try {
+        const journalData = await journalService.show(journalId)
+        setFormData(journalData)
+      } catch (err) {
+        console.log("Error fetching journal:", err)
+      }
+    }
+  }
+
+  fetchJournal()
+}, [journalId]) 
 
 
      useEffect(() => {
