@@ -37,6 +37,7 @@ function App() {
     setJournals(journals.filter((journal) => journal._id !== journalId))
     navigate('/journal')
   }
+  
   return (
     <>
       <NavBar />
