@@ -1,4 +1,6 @@
 import { Link } from 'react-router'
+import './list.css'
+
 
 const JournalList = ({ journals }) => {
   if (!journals.length) return <p>No journals yet</p>
