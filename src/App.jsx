@@ -38,8 +38,8 @@ function App() {
 
   const handleDeleteJournal = async (journalId) => {
     const deletedJournal= await journalService.deleteJournal(journalId)
-    setJournals(journals.filter((journal) => journal._id !== journalId))
-    navigate('/journal')
+    setJournals(journals.filter((journal) => journal._id !== deletedJournal._id))
+    navigate('/journals')
   }
 
    const handleUpdateJournal = async (journalId, journalFormData) => {
