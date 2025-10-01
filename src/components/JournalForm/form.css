@@ -48,3 +48,9 @@ button {
 button:hover {
     background-color: #2e465e;
 }
+
+
+::placeholder {
+  color: white;
+  opacity: 1; 
+}

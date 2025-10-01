@@ -57,9 +57,9 @@ const deleteJournal = async (journalId) => {
 }
 
 //update
-async function update(journalId, journalFormData) {
+const updateJournal = async (journalId, journalFormData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${journalId}`, {
+    const res = await fetch(`${BASE_URL}/${journalId}/edit`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -78,5 +78,5 @@ export {
     show,
     create,
     deleteJournal,
-    update 
+    updateJournal,
 }
