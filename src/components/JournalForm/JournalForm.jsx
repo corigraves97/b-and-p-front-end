@@ -38,8 +38,13 @@ const JournalForm = (props) => {
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
-        console.log(formData)
+        if(journalId){
+            console.log(formData)
+            props.handleUpdateJournal(journalId, formData);
+        }else {
         props.handleAddJournal(formData)
+        }
+        
         
         
     }

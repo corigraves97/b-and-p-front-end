@@ -38,6 +38,13 @@ function App() {
     setJournals(journals.filter((journal) => journal._id !== journalId))
     navigate('/journal')
   }
+
+   const handleUpdateJournal = async (journalId, journalFormData) => {
+    const updatedJournal = await journalService.update(journalId, journalFormData);
+    setJournals(journals.map((journal) => (journalId === journal._id ? updatedJournal : journal)));
+    navigate(`/journal/${journalId}`);
+  };
+
   return (
     <>
       <NavBar />
@@ -52,7 +59,7 @@ function App() {
               <Route path='/journal/:journalId' element={<JournalDetails handleDeleteJournal={handleDeleteJournal} />}/>
               <Route
               path='/journal/:journalId/edit'
-              element={<JournalForm />}
+              element={<JournalForm handleUpdateJournal={handleUpdateJournal}/>}
             />
           </>
         ) : (
