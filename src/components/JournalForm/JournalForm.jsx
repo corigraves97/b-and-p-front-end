@@ -6,7 +6,6 @@ import axios from 'axios'
 import * as journalService from '../../services/journalService'
 
 import { Alert, Typography } from '@mui/material'
-import axios from 'axios'
 
 const DEFAULT_SIDE = 'long'
 const DEFAULT_VOLUME = '1m-5m'
