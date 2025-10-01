@@ -1,11 +1,11 @@
 import './form.css'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import axios from 'axios'
 
 import * as journalService from '../../services/journalService'
 
 import { Alert, Typography } from '@mui/material'
-import axios from 'axios'
 
 const DEFAULT_SIDE = 'long'
 const DEFAULT_VOLUME = '1m-5m'
@@ -210,7 +210,12 @@ useEffect(() => {
             if (journalId) {
                 try {
                     const journalData = await journalService.show(journalId)
-                    setFormData(journalData)
+                    setFormData({
+                    ...journalData,
+                    timeOfDay: journalData.timeOfDay 
+                        ? new Date(journalData.timeOfDay).toISOString().substring(11,16) 
+                        : ''
+                    });
                 } catch (err) {
                     console.log("Error fetching journal:", err)
                 }
@@ -310,7 +315,7 @@ useEffect(() => {
                     href="https://www.investopedia.com/terms/s/stocksymbol.asp" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'white' }}
                     >
                     &#9432;
                     </a>
@@ -332,6 +337,7 @@ useEffect(() => {
                     id='side-select'
                     value={formData.side}
                     onChange={handleChange}
+                    style={{ color: 'white' }}
                 >
                     <option value="long">Long</option>
                     <option value="short">Short</option>
@@ -344,6 +350,7 @@ useEffect(() => {
                 id="tod-input"
                 value={formData.timeOfDay}
                 onChange={handleChange}
+                style={{ color: 'white' }}
                 />
                 <label htmlFor='shareSize'>Share Size:</label>
                 <input
@@ -354,13 +361,14 @@ useEffect(() => {
                     value={formData.shareSize}
                     onChange={handleChange}
                     placeholder='e.g. 100'
+                    style={{ color: 'white' }}
                 />
                 <label htmlFor='entry'>Entry:
                 <a 
                     href="https://www.investopedia.com/terms/e/entry-point.asp" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'white' }}
                 >
                     &#9432;
                 </a>
@@ -373,6 +381,7 @@ useEffect(() => {
                     value={formData.entry}
                     onChange={handleChange}
                     placeholder='e.g. 145.32'
+                    style={{ color: 'white' }}
 
                 />
                 <label htmlFor='exit'>Exit:</label>
@@ -384,14 +393,13 @@ useEffect(() => {
                     value={formData.exit}
                     onChange={handleChange}
                     placeholder='e.g. 152.75'
+                    style={{ color: 'white' }}
                 />
                 <label htmlFor='volume'>Volume:</label>
-
                 <select 
-                    required
-                    name="volume" 
-                    value={formData.volume} 
-                    id='volume-select'
+                    style={{ color: "white" }}
+                    name="volume"
+                    value={formData.volume}
                     onChange={handleChange}>
                     <option value="1m-5m">1m-5m</option>
                     <option value="10m-20m">10m-20m</option>
@@ -408,7 +416,7 @@ useEffect(() => {
                         href="https://www.investopedia.com/terms/b/brokerage-fee.asp"
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                        style={{ marginLeft: '6px', fontSize: '0.9em', color: 'white' }}
                     >
                         &#9432;
                     </a>
@@ -431,6 +439,7 @@ useEffect(() => {
                 id="executedDay-input"
                 value={formData.executedDay}
                 onChange={handleChange}
+                style={{ color: "white" }}
                 />
             <label htmlFor='meta'>
                 Meta:
@@ -438,7 +447,7 @@ useEffect(() => {
                     href="https://www.investopedia.com/trading/trading-strategy/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'white' }}
                 >
                     &#9432;
                 </a>
@@ -451,30 +460,24 @@ useEffect(() => {
                 value={formData.meta}
                 onChange={handleChange}
                 placeholder="e.g. Breakout strategy, swing trade"
+                style={{ color: 'white' }}
                 />
                 <label htmlFor='notes'>
                 Notes:
                 </label>
                 <textarea
-                    required
-                    name='notes'
-                    id='notes-input'
-                    value={formData.notes}
-                    onChange={handleChange}
+                required
+                name='notes'
+                id='notes-input'
+                value={formData.notes}
+                onChange={handleChange}
+                placeholder="Thoughts?"
+                rows={4}
+                style={{ width: '100%', color: 'white' }}
                 />
-                {/* P/L Display */}
-                {profitLoss !== 0 && (
-                    <Alert 
-                        severity={profitLoss >= 0 ? 'success' : 'error'}
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        <Typography variant="h6">
-                            Net P/L: ${profitLoss.toFixed(2)}
-                        </Typography>
-                    </Alert>
-                )}
-                <button type='submit'>{journalId ? 'Update Entry!' : 'Create Entry!'}</button>
-
+                <button type='submit'>
+                    {journalId ? 'Update Entry!' : 'Create Entry!'}
+                    </button>
             </form>
         </main>     
     );
