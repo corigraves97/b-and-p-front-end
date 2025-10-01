@@ -6,6 +6,7 @@ import axios from 'axios'
 import * as journalService from '../../services/journalService'
 
 import { Alert, Typography } from '@mui/material'
+import axios from 'axios'
 
 const DEFAULT_SIDE = 'long'
 const DEFAULT_VOLUME = '1m-5m'
@@ -137,7 +138,6 @@ const [tradeData, setTradeData] = useState({
     // if editing, we will also have journalId in the url params
 
     // const { journalId } = useParams()
-    const [marketView, setMarketView] = useState(null)
     //console.log(journalId)
     const [formData, setFormData] = useState({
         userId: '',
