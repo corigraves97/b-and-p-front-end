@@ -9,10 +9,6 @@ import { Alert, Typography } from '@mui/material'
 const DEFAULT_SIDE = 'long'
 const DEFAULT_VOLUME = '1m-5m'
 
-
-
-
-
 const JournalForm = (props) => {
    
 // this is used to determine if we are editing an existing journal or creating a new one
@@ -156,7 +152,6 @@ useEffect(() => {
     setTradeData((prev) => ({
         ...prev,
         ...formData,
-        marketSnapshot: { symbol: formData.symbol.toUpperCase() },
     }));
 }, [formData]);
 
@@ -225,19 +220,26 @@ useEffect(() => {
     };
 
     const createPayload = () => {
+        const basePayload = { ...tradeData };
+
         if (!marketSnapshot || !marketSnapshot.symbol) {
-            console.error('Market snapshot data is missing or incomplete');
-            return tradeData; // Return tradeData alone if marketSnapshot is not available
+            console.warn('Market snapshot data is missing or incomplete');
+            return basePayload;
         }
-   const payload = {
-            ...tradeData,
-            marketSnapshot: {
-                timestamp: marketSnapshot.timestamp,
-                symbol: marketSnapshot.symbol,
-                overview: marketSnapshot.overview,
-                sharesData: marketSnapshot.shares,
-                newsContext: marketSnapshot.news?.feed?.slice(0, 3) || [], // Latest 3 news items
-            }
+
+        const snapshotPayload = {
+            timestamp: marketSnapshot.timestamp || new Date().toISOString(),
+            symbol: marketSnapshot.symbol,
+            overview: marketSnapshot.overview || {},
+            shares: Array.isArray(marketSnapshot.shares) ? marketSnapshot.shares : [],
+            news: Array.isArray(marketSnapshot.news?.feed)
+                ? marketSnapshot.news.feed.slice(0, 3)
+                : [],
+        };
+
+        const payload = {
+            ...basePayload,
+            marketSnapshot: [snapshotPayload],
         };
         console.log('Payload to be sent to backend:', payload);
         return payload;
