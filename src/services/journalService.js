@@ -24,6 +24,7 @@ const show = async (journalId) => {
         console.log(error)
     }
 }
+
 const create = async (journalFormData) => {
     try {
         const res = await fetch(`${BASE_URL}/new`, {

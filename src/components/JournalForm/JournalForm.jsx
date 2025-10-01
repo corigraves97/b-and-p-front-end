@@ -3,16 +3,22 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/journal`
 import './form.css'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router'
+
 import * as journalService from '../../services/journalService'
+
+import { Alert, Grid, Typography } from '@mui/material';
 
 const JournalForm = (props) => {
     // props is {handleAddJournal}
     // if editing, we will also have journalId in the url params
-    
-    const { journalId } = useParams()
-    const [ marketView, setMarketView ] = useState(null)
-    //console.log(journalId)
-    const [formData, setFormData] = useState({
+   
+    const saveTrade = async (journalId, journalFormData) => {
+    await journalService.update(journalId, journalFormData)
+  }
+
+  const { journalId } = useParams()
+  const [profitLoss, setProfitLoss] = useState(0);
+  const [formData, setFormData] = useState({
         symbol: '',
         side: 'long',
         timeOfDay: '',
@@ -26,6 +32,7 @@ const JournalForm = (props) => {
         notes: '',
     });
     
+
     useEffect(() => {
         try{ 
             axios.get('http://localhost:3000/api/shares')
@@ -34,6 +41,34 @@ const JournalForm = (props) => {
         }
     })
 
+
+     useEffect(() => {
+    const entry = parseFloat(formData.entry);
+    const exit = parseFloat(formData.exit);
+    const shareSize = parseInt(formData.shareSize);
+    const fees = parseFloat(formData.fees) || 0;
+
+    if (
+      !isNaN(entry) &&
+      !isNaN(exit) &&
+      !isNaN(shareSize) &&
+      shareSize > 0 &&
+      formData.side
+    ) {
+      let profit;
+      if (formData.side === 'long') {
+        profit = (exit - entry) * shareSize;
+      } else if (formData.side === 'short') {
+        profit = (entry - exit) * shareSize;
+      } else {
+        setProfitLoss(0);
+        return;
+      }
+      setProfitLoss(profit - fees);
+    } else {
+      setProfitLoss(0);
+    }
+  }, [formData.entry, formData.exit, formData.shareSize, formData.fees, formData.side]);
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -86,7 +121,7 @@ const JournalForm = (props) => {
                 <label htmlFor='shareSize'>Share Size:</label>
                 <input
                     required
-                    type='text'
+                    type='number'
                     name='shareSize'
                     id='shareSize-input'
                     value={formData.shareSize}
@@ -95,7 +130,7 @@ const JournalForm = (props) => {
                 <label htmlFor='entry'>Entry:</label>
                 <input
                     required
-                    type='text'
+                    type='number'
                     name='entry'
                     id='entry-input'
                     value={formData.entry}
@@ -104,7 +139,7 @@ const JournalForm = (props) => {
                 <label htmlFor='exit'>Exit:</label>
                 <input
                     required
-                    type='text'
+                    type='number'
                     name='exit'
                     id='exit-input'
                     value={formData.exit}
@@ -127,7 +162,7 @@ const JournalForm = (props) => {
                 <label htmlFor='fees'>Fees:</label>
                 <input
                     required
-                    type='text'
+                    type='number'
                     name='fees'
                     id='fees-input'
                     value={formData.fees}
@@ -160,7 +195,19 @@ const JournalForm = (props) => {
                     value={formData.notes}
                     onChange={handleChange}
                 />
-                <button type='submit'>Create Entry!</button>
+                        {/* P/L Display */}
+                  {profitLoss !== 0 && (
+             
+                      <Alert 
+                        severity={profitLoss >= 0 ? 'success' : 'error'}
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                      >
+                        <Typography variant="h6">
+                          {profitLoss >= 0 ? '' : ''} Net P/L: ${profitLoss.toFixed(2)}
+                        </Typography>
+                      </Alert>
+                  )}
+                <button type='submit'>{journalId ? 'Update Entry!' : 'Create Entry!'}</button>
             </form>
         </main>
     );
