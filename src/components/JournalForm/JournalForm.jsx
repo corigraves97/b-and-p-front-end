@@ -8,9 +8,9 @@ import * as journalService from '../../services/journalService'
 const JournalForm = (props) => {
     // props is {handleAddJournal}
     // if editing, we will also have journalId in the url params
-    
+
     const { journalId } = useParams()
-    const [ marketView, setMarketView ] = useState(null)
+    const [marketView, setMarketView] = useState(null)
     //console.log(journalId)
     const [formData, setFormData] = useState({
         symbol: '',
@@ -25,28 +25,41 @@ const JournalForm = (props) => {
         meta: '',
         notes: '',
     });
-    
+
     useEffect(() => {
-  try { 
-    axios.get('http://localhost:3000/api/shares')
-  } catch (err) {
-    console.log(err)
-  }
-
-  const fetchJournal = async () => {
-    if (journalId) {
-      try {
-        const journalData = await journalService.show(journalId)
-        setFormData(journalData)
-      } catch (err) {
-        console.log("Error fetching journal:", err)
-      }
-    }
-  }
-
-  fetchJournal()
-}, [journalId]) 
-
+        try {
+            axios.get('http://localhost:3000/api/shares')
+        } catch (err) {
+            console.log(err)
+        }
+    })
+    useEffect(() => {
+        const fetchJournal = async () => {
+            if (journalId) {
+                try {
+                    const journalData = await journalService.show(journalId)
+                    setFormData(journalData)
+                } catch (err) {
+                    console.log("Error fetching journal:", err)
+                }
+            } else {
+                setFormData({
+                    symbol: '',
+                    side: 'long',
+                    timeOfDay: '',
+                    shareSize: '',
+                    entry: '',
+                    exit: '',
+                    volume: '1m-5m',
+                    fees: '',
+                    executedDay: '',
+                    meta: '',
+                    notes: '',
+                })
+            }
+        }
+        fetchJournal()
+    }, [journalId])
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -62,9 +75,9 @@ const JournalForm = (props) => {
         }else {
         props.handleAddJournal(payload)
         }
-        
-        
-        
+
+
+
     }
     return (
         <main>
@@ -150,10 +163,10 @@ const JournalForm = (props) => {
                     placeholder='e.g. 152.75'
                 />
                 <label htmlFor='volume'>Volume:</label>
-                <select 
-                name="volume" 
-                value={formData.volume} 
-                onChange={handleChange}>
+                <select
+                    name="volume"
+                    value={formData.volume}
+                    onChange={handleChange}>
                     <option value="1m-5m">1m-5m</option>
                     <option value="10m-20m">10m-20m</option>
                     <option value="30m-40m">30m-40m</option>
