@@ -22,6 +22,21 @@ const JournalForm = (props) => {
         notes: '',
         marketSnapshot: { symbol: '' },
     });
+    const [symbols, setSymbols] = useState([]);
+
+    useEffect(() => {
+        const fetchSymbols = async () => {
+            try {
+                // hit backend overview route for a list of tickers
+                const res = await fetch("http://localhost:3000/api/overview?tickers=AAPL");
+                const data = await res.json();
+                setSymbols([data.Symbol]);
+            } catch (err) {
+                console.error("Error fetching symbols", err);
+            }
+        };
+        fetchSymbols();
+    }, [])
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -40,26 +55,6 @@ const JournalForm = (props) => {
         }
         props.handleAddJournal(formattedData)
     }
-    /*useEffect(() => {
-        const fetchJournal = async () => {
-            const journalData = await journalService.show(journalId)
-            setFormData(journalData)
-        }
-        if (journalId) fetchJournal()
-        return () => setJournalData({ 
-        symbol: '',
-        side: '',
-        timeOfDay: '',
-        shareSize: '',
-        entry: '',
-        exit: '',
-        volume: '',
-        fees: '',
-        executedDay: '',
-        meta: '',
-        notes: '',
-        marketSnapshot: '',})
-    }, [journalId])*/
     return (
         <main>
             <h1>{journalId ? 'Edit Entry' : 'New Entry'}</h1>
@@ -171,20 +166,24 @@ const JournalForm = (props) => {
                     value={formData.notes}
                     onChange={handleChange}
                 />
-                <label htmlFor='market-snapshot'>Market-Snapshot Symbol:</label>
-                <input
+                <label htmlFor="market-snapshot">Market Snapshot Symbol:</label>
+                <select
                     required
-                    type='text'
-                    name='marketSnapshot.symbol' // dot notation to match nested object
-                    id='marketSnapshot-input'
-                    value={formData.marketSnapshot.symbol || ''}
+                    name="marketSnapshot.symbol"
+                    id="marketSnapshot-input"
+                    value={formData.marketSnapshot.symbol}
                     onChange={(evt) =>
                         setFormData({
                             ...formData,
-                            meta: { strategyTag: evt.target.value }
+                            marketSnapshot: { ...formData.marketSnapshot, symbol: evt.target.value }
                         })
                     }
-                />
+                >
+                    <option value="">Select a symbol</option>
+                    {symbols.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                    ))}
+                </select>
                 <button type='submit'>Create Entry!</button>
             </form>
         </main>
