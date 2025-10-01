@@ -1,6 +1,7 @@
 import './form.css'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import axios from 'axios'
 
 import * as journalService from '../../services/journalService'
 
