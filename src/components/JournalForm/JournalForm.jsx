@@ -89,7 +89,7 @@ const JournalForm = (props) => {
                     href="https://www.investopedia.com/terms/s/stocksymbol.asp" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'blue' }}
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
                     >
                     &#9432;
                     </a>
@@ -137,7 +137,7 @@ const JournalForm = (props) => {
                     href="https://www.investopedia.com/terms/e/entry-point.asp" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'blue' }}
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
                 >
                     &#9432;
                 </a>
@@ -182,9 +182,9 @@ const JournalForm = (props) => {
                         href="https://www.investopedia.com/terms/b/brokerage-fee.asp"
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ marginLeft: '6px', fontSize: '0.9em', color: 'blue' }}
+                        style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
                     >
-                        ℹ️
+                        &#9432;
                     </a>
                     </label>
                     <input
@@ -212,9 +212,9 @@ const JournalForm = (props) => {
                     href="https://www.investopedia.com/trading/trading-strategy/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'blue' }}
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
                 >
-                    ℹ️
+                    &#9432;
                 </a>
                 </label>
                 <input
