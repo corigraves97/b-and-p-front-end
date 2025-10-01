@@ -135,7 +135,7 @@ const [tradeData, setTradeData] = useState({
     // props is {handleAddJournal}
     // if editing, we will also have journalId in the url params
 
-    const { journalId } = useParams()
+    // const { journalId } = useParams()
     const [marketView, setMarketView] = useState(null)
     //console.log(journalId)
     const [formData, setFormData] = useState({
@@ -287,28 +287,23 @@ useEffect(() => {
         console.log('Payload to be sent to backend:', payload);
         return payload;
 
-         const timeString = formData.timeOfDay; // "05:00"
-         const isoString = new Date(`2001-01-01T${timeString}:00Z`).toISOString();
-         const payload = { ...formData, timeOfDay: isoString };
-        if(journalId){
-            props.handleUpdateJournal(journalId, payload);
-        }else {
-        props.handleAddJournal(payload)
-        }
-
-
-
+        // The following code is unreachable and redundant due to the return above.
+        // If you need to use this logic, refactor and move it outside or above the return statement.
+        // const timeString = formData.timeOfDay; // "05:00"
+        // const isoString = new Date(`2001-01-01T${timeString}:00Z`).toISOString();
+        // const altPayload = { ...formData, timeOfDay: isoString };
+        // if(journalId){
+        //     props.handleUpdateJournal(journalId, altPayload);
+        // }else {
+        //     props.handleAddJournal(altPayload)
+        // }
     }
   
     
     return (
         <main>
-
-            <form onSubmit={handleSubmit} className="journal-form">
-                <label htmlFor='symbol'>Symbol:</label>
-
             <h1>{journalId ? 'Edit Entry' : 'New Entry'}</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="journal-form">
                <label htmlFor='symbol'>
                     Symbol:
                     <a 
@@ -481,7 +476,7 @@ useEffect(() => {
                 <button type='submit'>{journalId ? 'Update Entry!' : 'Create Entry!'}</button>
 
             </form>
-        </main>
+        </main>     
     );
 }
 
