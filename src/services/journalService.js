@@ -5,9 +5,12 @@ const index = async () => {
         const res = await fetch(BASE_URL, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
         })
-        return res.json()
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.err || 'Failed to fetch journals')
+        return Array.isArray(data) ? data: []
     } catch (err) {
         console.log(err)
+        return []
     }
 }
 
@@ -52,9 +55,26 @@ const deleteJournal = async (journalId) => {
   }
 }
 
+async function update(journalId, journalFormData) {
+  try {
+    const res = await fetch(`${BASE_URL}/${journalId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(journalFormData),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
     index,
     show,
     create,
     deleteJournal,
+    update 
 }

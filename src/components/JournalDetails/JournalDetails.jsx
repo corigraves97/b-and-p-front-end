@@ -10,30 +10,33 @@ const JournalDetails = (props) => {
     const [journal, setJournal] = useState(null)
     useEffect(() => {
         const fetchJournal = async () => {
-            const journalData = await journalService.show(journalId)
-            setJournal(journalData)
+            try {
+                const data = await journalService.show(journalId)
+                console.log("Fetched journal:", data)
+                setJournal(data)
+            } catch (err) {
+                console.error(err)
+            }
         }
         fetchJournal()
     }, [journalId])
-    console.log('journal state', journal)
     if (!journal) return <main>No Journal Entries</main>
     return (
         <main>
             <section>
                 <header>
-                    <h1>{journal.symbol}</h1>
-                    <p>{journal.side}</p>
-                    <p>{journal.timeOfDay}</p>
-                    <p>{journal.shareSize}</p>
-                    <p>{journal.entry}</p>
-                    <p>{journal.exit}</p>
-                    <p>{journal.volume}</p>
-                    <p>{journal.fees}</p>
-                    <p>{journal.executedDay}</p>
-                    <p>{journal.meta}</p>
-                    <p>{journal.notes}</p>
-                    <p>{journal.marketSnapshot}</p>
-                    <Link to= {`/journal/${journalId}/edit`}>Edit Entry</Link>
+                    <h2>{journal.symbol}</h2>
+                    <p><strong>Side:</strong> {journal.side}</p>
+                    <p><strong>Time of Day:</strong> {journal.timeOfDay}</p>
+                    <p><strong>Share Size:</strong> {journal.shareSize}</p>
+                    <p><strong>Entry: </strong> {journal.entry}</p>
+                    <p><strong>Exit: </strong> {journal.exit}</p>
+                    <p><strong>Volume:</strong>: {journal.volume}</p>
+                    <p><strong>Fees:</strong> {journal.fees}</p>
+                    <p><strong>Executed Day:</strong> {journal.executedDay}</p>
+                    <p><strong>Meta:</strong> {journal.meta}</p>
+                    <p><strong>Notes: </strong> {journal.notes}</p>
+                    <Link to={`/journal/${journalId}/edit`}>Edit Entry</Link>
                     <button onClick={() => props.handleDeleteJournal(journalId)}>Delete</button>
                 </header>
             </section>

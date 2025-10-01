@@ -23,13 +23,17 @@ function App() {
       setJournals(journalsData)
     }
     if (user) fetchAllJournals()
-  }, [user])
+  }, [user]) 
 
   const handleAddJournal = async (journalFormData) => {
     const newJournal = await journalService.create(journalFormData)
-    if(!newJournal) return
-    setJournals([newJournal, ...journals])
-    navigate('/journal')
+    console.log(newJournal)
+    if(!newJournal) {
+      return
+    } else {
+      setJournals([newJournal, ...journals])
+      navigate('/journal')
+    }
   }
 
   const handleDeleteJournal = async (journalId) => {
@@ -37,7 +41,13 @@ function App() {
     setJournals(journals.filter((journal) => journal._id !== journalId))
     navigate('/journal')
   }
-  
+
+   const handleUpdateJournal = async (journalId, journalFormData) => {
+    const updatedJournal = await journalService.update(journalId, journalFormData);
+    setJournals(journals.map((journal) => (journalId === journal._id ? updatedJournal : journal)));
+    navigate(`/journal/${journalId}`);
+  };
+
   return (
     <>
       <NavBar />
@@ -47,12 +57,11 @@ function App() {
           <>
             <Route path='/journal' element={<JournalList journals={journals}/>} />
             <Route 
-              path='/journal/:journalId' element={<JournalDetails />}/>
-              <Route path='journal/new' element={<JournalForm handleAddJournal={handleAddJournal} />} />
-              <Route path='/journal/:journalId' element={<JournalDetails handleDeleteJournal={handleDeleteJournal} />}/>
+              path='/journal/:journalId' element={<JournalDetails handleDeleteJournal={handleDeleteJournal} />}/>
+              <Route path='/journal/new' element={<JournalForm handleAddJournal={handleAddJournal} />} />
               <Route
               path='/journal/:journalId/edit'
-              element={<JournalForm />}
+              element={<JournalForm handleUpdateJournal={handleUpdateJournal}/>}
             />
           </>
         ) : (

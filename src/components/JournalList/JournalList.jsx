@@ -1,22 +1,17 @@
 import { Link } from 'react-router'
 
-const JournalList = (props) => {
-    return (
-        <main>
-            {props.journals.map((journal) => (
-                <Link key={journal._id} to={`/journals/${journal._id}`}>
-                    <article>
-                        <header>
-                            <h2>{journal.symbol}</h2>
-                            <p>
-                            {`${new Date(journal.createdAt).toLocaleDateString()}`}
-                            </p>
-                        </header>
-                        <p>{journal.executedDay}</p>
-                    </article>
-        </Link>
+const JournalList = ({ journals }) => {
+  if (!journals.length) return <p>No journals yet</p>
+  return (
+    <ul>
+      {journals.map((journal) => (
+        <li key={journal._id}>
+          <Link to={`/journal/${journal._id}`}>
+            {journal.symbol} - {journal.side}
+          </Link>
+        </li>
       ))}
-    </main>
+    </ul>
   )
 }
 
