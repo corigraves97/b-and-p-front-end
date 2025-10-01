@@ -1,11 +1,141 @@
-import axios from 'axios'
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/journal`
 import './form.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+
 import * as journalService from '../../services/journalService'
 
+import { Alert, Typography } from '@mui/material'
+
+const DEFAULT_SIDE = 'long'
+const DEFAULT_VOLUME = '1m-5m'
+
+
+
+
+
 const JournalForm = (props) => {
+   
+// this is used to determine if we are editing an existing journal or creating a new one
+  const { journalId } = useParams()
+
+// this state is used to calculate and display profit/loss
+  const [profitLoss, setProfitLoss] = useState(0);
+
+
+// this state holds the market snapshot data fetched from the backend
+const [marketSnapshot, setMarketSnapshot] = useState({
+    timestamp: '',
+    symbol: '',
+    overview: {},
+    shares: [],
+    news: { feed: [] },
+});
+
+// this effect fetches market snapshot data when the component mounts or when journalId changes
+useEffect(() => {
+    const fetchMarketSnapshot = async () => {
+        try {
+            const response = await journalService.show(journalId)
+            if (!response) return
+
+            const snapshot = response.marketSnapshot || {}
+            const normalizedSymbol = (snapshot.symbol || response.symbol || '').toUpperCase()
+            const sharesData = snapshot.sharesData || snapshot.shares || []
+            const newsFeed = Array.isArray(snapshot.news?.feed)
+                ? snapshot.news.feed
+                : Array.isArray(snapshot.newsContext)
+                    ? snapshot.newsContext
+                    : []
+
+            setMarketSnapshot({
+                timestamp: snapshot.timestamp || '',
+                symbol: normalizedSymbol,
+                overview: snapshot.overview || {},
+                shares: sharesData,
+                news: { feed: newsFeed },
+            })
+
+            setFormData({
+                userId: response.userId || '',
+                // Ensure symbol is always uppercase
+                symbol: normalizedSymbol,
+                side: response.side || DEFAULT_SIDE,
+                timeOfDay: response.timeOfDay || '',
+                shareSize: response.shareSize || '',
+                entry: response.entry || '',
+                exit: response.exit || '',
+                volume: response.volume || DEFAULT_VOLUME,
+                fees: response.fees || '',
+                executedDay: response.executedDay || '',
+                meta: response.meta || '',
+                notes: response.notes || '',
+            })
+        } catch (error) {
+            console.error('Error fetching market snapshot:', error);
+        }
+    };
+
+    if (journalId) {
+        fetchMarketSnapshot();
+    }
+}, [journalId]); // Fetch market snapshot when journalId changes
+
+/* here is the journalSchema from the backend
+
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    symbol: { type: String, required: true, uppercase: true,},
+    side: { type: String, enum: ['long', 'short'], required: true },
+    timeOfDay: { type: Date, required: true, },
+    shareSize: { type: Number, required: true },
+    entry: { type: Number, required: true },
+    exit: { type: Number, required: true },
+    volume: {
+      type: String,
+      enum: [
+        '1m-5m',
+        '10m-20m',
+        '30m-40m',
+        '50m-70m',
+        '80m-100m',
+        '120m-150m',
+        '160m-180m',
+        '200m+',
+      ],
+      required: true,
+    },
+    fees: { type: Number, default: 0 },
+    executedDay: { type: Date, required: true,},
+    meta: String,
+    notes: String,
+    marketSnapshot: [marketSnapshotSchema]
+  },
+  { timestamps: true }*/
+
+
+// this function holds trade data from the form
+// it is combined with market snapshot data to create the payload for the backend by handleSubmit
+const [tradeData, setTradeData] = useState({
+    userId: '',
+    side: DEFAULT_SIDE,
+    timeOfDay: '',
+    shareSize: '',
+    entry: '',
+    exit: '',
+    volume: DEFAULT_VOLUME,
+    fees: '',
+    executedDay: '',
+    meta: '',
+    notes: '',
+});
+
+
+ 
+
+// this state holds the form data different from the trade data
+// it is initialized with empty strings for each field
+// tradedata vs formdata: formdata is used to populate the form inputs
+// tradedata is used to create the payload for the backend
+
     // props is {handleAddJournal}
     // if editing, we will also have journalId in the url params
 
@@ -13,18 +143,65 @@ const JournalForm = (props) => {
     const [marketView, setMarketView] = useState(null)
     //console.log(journalId)
     const [formData, setFormData] = useState({
+        userId: '',
         symbol: '',
-        side: 'long',
+        side: DEFAULT_SIDE,
         timeOfDay: '',
         shareSize: '',
         entry: '',
         exit: '',
-        volume: '1m-5m',
+        volume: DEFAULT_VOLUME,
         fees: '',
         executedDay: '',
         meta: '',
         notes: '',
     });
+
+    
+    // whenever formData changes, update tradeData
+// this ensures tradeData is always in sync with formData
+useEffect(() => {
+    setTradeData((prev) => ({
+        ...prev,
+        ...formData,
+        marketSnapshot: { symbol: formData.symbol.toUpperCase() },
+    }));
+}, [formData]);
+
+
+
+// Calculate profit/loss whenever relevant form fields change
+     useEffect(() => {
+    const entry = parseFloat(formData.entry);
+    const exit = parseFloat(formData.exit);
+    const shareSize = parseInt(formData.shareSize);
+    const fees = parseFloat(formData.fees) || 0;
+    if (
+      !isNaN(entry) &&
+      !isNaN(exit) &&
+      !isNaN(shareSize) &&
+      shareSize > 0 &&
+      formData.side
+    ) {
+      let profit;
+      if (formData.side === 'long') {
+        profit = (exit - entry) * shareSize;
+      } else if (formData.side === 'short') {
+        profit = (entry - exit) * shareSize;
+      } else {
+        setProfitLoss(0);
+        return;
+      }
+      setProfitLoss(profit - fees);
+    } else {
+      setProfitLoss(0);
+    }
+  }, [formData.entry, formData.exit, formData.shareSize, formData.fees, formData.side]);
+
+
+// this function handles changes to the form inputs
+// it updates the formData state with the new values
+// it also updates the marketSnapshot state with the symbol in uppercase
 
     useEffect(() => {
         try {
@@ -62,11 +239,52 @@ const JournalForm = (props) => {
     }, [journalId])
 
     const handleChange = (evt) => {
-        setFormData({ ...formData, [evt.target.name]: evt.target.value });
+        const { name, value } = evt.target
+        const nextValue = name === 'symbol' ? value.toUpperCase() : value
+
+        setFormData({ ...formData, [name]: nextValue });
+        // save market snapshot data to state
+        setMarketSnapshot((prev) => ({
+            ...prev,
+            symbol: name === 'symbol' ? nextValue : prev.symbol,
+        }));
     };
 
-    const handleSubmit = (evt) => {
+    // this function handles form submission
+    // it calls either handleAddJournal or handleUpdateJournal
+    // depending on whether we are creating a new journal or editing an existing one
+    // it also adds the market snapshot data to the formData before calling the parent function
+
+    const handleSubmit = async (evt) => {
         evt.preventDefault()
+
+        const payload = createPayload()
+
+        if (journalId && props.handleUpdateJournal) {
+            await props.handleUpdateJournal(journalId, payload)
+        } else if (props.handleAddJournal) {
+            await props.handleAddJournal(payload)
+        }
+    };
+
+    const createPayload = () => {
+        if (!marketSnapshot || !marketSnapshot.symbol) {
+            console.error('Market snapshot data is missing or incomplete');
+            return tradeData; // Return tradeData alone if marketSnapshot is not available
+        }
+   const payload = {
+            ...tradeData,
+            marketSnapshot: {
+                timestamp: marketSnapshot.timestamp,
+                symbol: marketSnapshot.symbol,
+                overview: marketSnapshot.overview,
+                sharesData: marketSnapshot.shares,
+                newsContext: marketSnapshot.news?.feed?.slice(0, 3) || [], // Latest 3 news items
+            }
+        };
+        console.log('Payload to be sent to backend:', payload);
+        return payload;
+
          const timeString = formData.timeOfDay; // "05:00"
          const isoString = new Date(`2001-01-01T${timeString}:00Z`).toISOString();
          const payload = { ...formData, timeOfDay: isoString };
@@ -79,8 +297,14 @@ const JournalForm = (props) => {
 
 
     }
+  
+    
     return (
         <main>
+
+            <form onSubmit={handleSubmit} className="journal-form">
+                <label htmlFor='symbol'>Symbol:</label>
+
             <h1>{journalId ? 'Edit Entry' : 'New Entry'}</h1>
             <form onSubmit={handleSubmit}>
                <label htmlFor='symbol'>
@@ -94,6 +318,7 @@ const JournalForm = (props) => {
                     &#9432;
                     </a>
                 </label>
+
                 <input
                     required
                     type='text'
@@ -107,6 +332,7 @@ const JournalForm = (props) => {
                 <select
                     required
                     name="side"
+                    id='side-select'
                     value={formData.side}
                     onChange={handleChange}
                 >
@@ -125,7 +351,7 @@ const JournalForm = (props) => {
                 <label htmlFor='shareSize'>Share Size:</label>
                 <input
                     required
-                    type='text'
+                    type='number'
                     name='shareSize'
                     id='shareSize-input'
                     value={formData.shareSize}
@@ -144,7 +370,7 @@ const JournalForm = (props) => {
                 </label>
                 <input
                     required
-                    type='text'
+                    type='number'
                     name='entry'
                     id='entry-input'
                     value={formData.entry}
@@ -155,7 +381,7 @@ const JournalForm = (props) => {
                 <label htmlFor='exit'>Exit:</label>
                 <input
                     required
-                    type='text'
+                    type='number'
                     name='exit'
                     id='exit-input'
                     value={formData.exit}
@@ -163,9 +389,12 @@ const JournalForm = (props) => {
                     placeholder='e.g. 152.75'
                 />
                 <label htmlFor='volume'>Volume:</label>
-                <select
-                    name="volume"
-                    value={formData.volume}
+
+                <select 
+                    required
+                    name="volume" 
+                    value={formData.volume} 
+                    id='volume-select'
                     onChange={handleChange}>
                     <option value="1m-5m">1m-5m</option>
                     <option value="10m-20m">10m-20m</option>
@@ -230,21 +459,29 @@ const JournalForm = (props) => {
                 Notes:
                 </label>
                 <textarea
-                required
-                name='notes'
-                id='notes-input'
-                value={formData.notes}
-                onChange={handleChange}
-                placeholder="Thoughts?"
-                rows={4}
-                style={{ width: '100%' }}
+                    required
+                    name='notes'
+                    id='notes-input'
+                    value={formData.notes}
+                    onChange={handleChange}
                 />
-                <button type='submit'>
-                    {journalId ? 'Update Entry!' : 'Create Entry!'}
-                    </button>
+                {/* P/L Display */}
+                {profitLoss !== 0 && (
+                    <Alert 
+                        severity={profitLoss >= 0 ? 'success' : 'error'}
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                    >
+                        <Typography variant="h6">
+                            Net P/L: ${profitLoss.toFixed(2)}
+                        </Typography>
+                    </Alert>
+                )}
+                <button type='submit'>{journalId ? 'Update Entry!' : 'Create Entry!'}</button>
+
             </form>
         </main>
     );
-};
+}
+
 
 export default JournalForm;
