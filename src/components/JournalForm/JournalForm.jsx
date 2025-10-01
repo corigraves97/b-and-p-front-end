@@ -91,7 +91,7 @@ const JournalForm = (props) => {
                     rel="noopener noreferrer" 
                     style={{ marginLeft: '6px', fontSize: '0.9em', color: 'blue' }}
                     >
-                    ℹ️
+                    &#9432;
                     </a>
                 </label>
                 <input
@@ -139,7 +139,7 @@ const JournalForm = (props) => {
                     rel="noopener noreferrer" 
                     style={{ marginLeft: '6px', fontSize: '0.9em', color: 'blue' }}
                 >
-                    ℹ️
+                    &#9432;
                 </a>
                 </label>
                 <input
