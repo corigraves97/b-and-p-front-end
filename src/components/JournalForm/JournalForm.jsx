@@ -131,6 +131,13 @@ const [tradeData, setTradeData] = useState({
 // it is initialized with empty strings for each field
 // tradedata vs formdata: formdata is used to populate the form inputs
 // tradedata is used to create the payload for the backend
+
+    // props is {handleAddJournal}
+    // if editing, we will also have journalId in the url params
+
+    const { journalId } = useParams()
+    const [marketView, setMarketView] = useState(null)
+    //console.log(journalId)
     const [formData, setFormData] = useState({
         userId: '',
         symbol: '',
@@ -145,6 +152,7 @@ const [tradeData, setTradeData] = useState({
         meta: '',
         notes: '',
     });
+
     
     // whenever formData changes, update tradeData
 // this ensures tradeData is always in sync with formData
@@ -189,6 +197,41 @@ useEffect(() => {
 // this function handles changes to the form inputs
 // it updates the formData state with the new values
 // it also updates the marketSnapshot state with the symbol in uppercase
+
+    useEffect(() => {
+        try {
+            axios.get('http://localhost:3000/api/shares')
+        } catch (err) {
+            console.log(err)
+        }
+    })
+    useEffect(() => {
+        const fetchJournal = async () => {
+            if (journalId) {
+                try {
+                    const journalData = await journalService.show(journalId)
+                    setFormData(journalData)
+                } catch (err) {
+                    console.log("Error fetching journal:", err)
+                }
+            } else {
+                setFormData({
+                    symbol: '',
+                    side: 'long',
+                    timeOfDay: '',
+                    shareSize: '',
+                    entry: '',
+                    exit: '',
+                    volume: '1m-5m',
+                    fees: '',
+                    executedDay: '',
+                    meta: '',
+                    notes: '',
+                })
+            }
+        }
+        fetchJournal()
+    }, [journalId])
 
     const handleChange = (evt) => {
         const { name, value } = evt.target
@@ -243,13 +286,41 @@ useEffect(() => {
         };
         console.log('Payload to be sent to backend:', payload);
         return payload;
+
+         const timeString = formData.timeOfDay; // "05:00"
+         const isoString = new Date(`2001-01-01T${timeString}:00Z`).toISOString();
+         const payload = { ...formData, timeOfDay: isoString };
+        if(journalId){
+            props.handleUpdateJournal(journalId, payload);
+        }else {
+        props.handleAddJournal(payload)
+        }
+
+
+
     }
   
     
     return (
         <main>
+
             <form onSubmit={handleSubmit} className="journal-form">
                 <label htmlFor='symbol'>Symbol:</label>
+
+            <h1>{journalId ? 'Edit Entry' : 'New Entry'}</h1>
+            <form onSubmit={handleSubmit}>
+               <label htmlFor='symbol'>
+                    Symbol:
+                    <a 
+                    href="https://www.investopedia.com/terms/s/stocksymbol.asp" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                    >
+                    &#9432;
+                    </a>
+                </label>
+
                 <input
                     required
                     type='text'
@@ -257,6 +328,7 @@ useEffect(() => {
                     id='symbol-input'
                     value={formData.symbol}
                     onChange={handleChange}
+                    placeholder="Enter stock symbol"
                 />
                 <label htmlFor='side'>Side:</label>
                 <select
@@ -271,12 +343,12 @@ useEffect(() => {
                 </select>
                 <label htmlFor='timeOfDay'>Time Of Day:</label>
                 <input
-                    required
-                    type='text'
-                    name='timeOfDay'
-                    id='tod-input'
-                    value={formData.timeOfDay}
-                    onChange={handleChange}
+                required
+                type="time"
+                name="timeOfDay"
+                id="tod-input"
+                value={formData.timeOfDay}
+                onChange={handleChange}
                 />
                 <label htmlFor='shareSize'>Share Size:</label>
                 <input
@@ -286,8 +358,18 @@ useEffect(() => {
                     id='shareSize-input'
                     value={formData.shareSize}
                     onChange={handleChange}
+                    placeholder='e.g. 100'
                 />
-                <label htmlFor='entry'>Entry:</label>
+                <label htmlFor='entry'>Entry:
+                <a 
+                    href="https://www.investopedia.com/terms/e/entry-point.asp" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                >
+                    &#9432;
+                </a>
+                </label>
                 <input
                     required
                     type='number'
@@ -295,6 +377,8 @@ useEffect(() => {
                     id='entry-input'
                     value={formData.entry}
                     onChange={handleChange}
+                    placeholder='e.g. 145.32'
+
                 />
                 <label htmlFor='exit'>Exit:</label>
                 <input
@@ -304,8 +388,10 @@ useEffect(() => {
                     id='exit-input'
                     value={formData.exit}
                     onChange={handleChange}
+                    placeholder='e.g. 152.75'
                 />
                 <label htmlFor='volume'>Volume:</label>
+
                 <select 
                     required
                     name="volume" 
@@ -321,34 +407,59 @@ useEffect(() => {
                     <option value="160m-180m">160m-180m</option>
                     <option value="200m+">200m+</option>
                 </select>
-                <label htmlFor='fees'>Fees:</label>
-                <input
+                <label htmlFor='fees'>
+                    Fees:
+                    <a 
+                        href="https://www.investopedia.com/terms/b/brokerage-fee.asp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                    >
+                        &#9432;
+                    </a>
+                    </label>
+                    <input
                     required
                     type='number'
+                    step='0.01'
                     name='fees'
                     id='fees-input'
                     value={formData.fees}
                     onChange={handleChange}
-                />
+                    placeholder="e.g. 5.95"
+                    />
                 <label htmlFor='executedDay'>Executed Day:</label>
                 <input
-                    required
-                    type='text'
-                    name='executedDay'
-                    id='executedDay-input'
-                    value={formData.executedDay}
-                    onChange={handleChange}
+                required
+                type="date"
+                name="executedDay"
+                id="executedDay-input"
+                value={formData.executedDay}
+                onChange={handleChange}
                 />
-                <label htmlFor='meta'>Meta:</label>
+            <label htmlFor='meta'>
+                Meta:
+                <a
+                    href="https://www.investopedia.com/trading/trading-strategy/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ marginLeft: '6px', fontSize: '0.9em', color: 'black' }}
+                >
+                    &#9432;
+                </a>
+                </label>
                 <input
-                    required
-                    type='text'
-                    name='meta'
-                    id='meta-input'
-                    value={formData.meta}
-                    onChange={handleChange}
+                required
+                type='text'
+                name='meta'
+                id='meta-input'
+                value={formData.meta}
+                onChange={handleChange}
+                placeholder="e.g. Breakout strategy, swing trade"
                 />
-                <label htmlFor='notes'>Notes:</label>
+                <label htmlFor='notes'>
+                Notes:
+                </label>
                 <textarea
                     required
                     name='notes'
@@ -368,6 +479,7 @@ useEffect(() => {
                     </Alert>
                 )}
                 <button type='submit'>{journalId ? 'Update Entry!' : 'Create Entry!'}</button>
+
             </form>
         </main>
     );
