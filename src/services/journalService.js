@@ -5,9 +5,12 @@ const index = async () => {
         const res = await fetch(BASE_URL, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
         })
-        return res.json()
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.err || 'Failed to fetch journals')
+        return Array.isArray(data) ? data: []
     } catch (err) {
         console.log(err)
+        return []
     }
 }
 
