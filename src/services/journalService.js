@@ -56,7 +56,7 @@ const deleteJournal = async (journalId) => {
 }
 
 //update
-async function update(journalId, journalFormData) {
+const updateJournal = async (journalId, journalFormData) => {
   try {
     const res = await fetch(`${BASE_URL}/${journalId}`, {
       method: 'PUT',
@@ -77,5 +77,5 @@ export {
     show,
     create,
     deleteJournal,
-    update 
+    updateJournal,
 }
