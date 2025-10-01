@@ -17,16 +17,17 @@ function App() {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const [journals, setJournals] = useState([])
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchAllJournals = async () => {
       const journalsData = await journalService.index()
       setJournals(journalsData)
     }
     if (user) fetchAllJournals()
-  }, [user])
+  }, [user]) */
 
   const handleAddJournal = async (journalFormData) => {
     const newJournal = await journalService.create(journalFormData)
+    console.log(newJournal)
     if(!newJournal) return
     setJournals([newJournal, ...journals])
     navigate('/journal')
@@ -47,7 +48,7 @@ function App() {
             <Route path='/journal' element={<JournalList journals={journals}/>} />
             <Route 
               path='/journal/:journalId' element={<JournalDetails />}/>
-              <Route path='journal/new' element={<JournalForm handleAddJournal={handleAddJournal} />} />
+              <Route path='/journal/new' element={<JournalForm handleAddJournal={handleAddJournal} />} />
               <Route path='/journal/:journalId' element={<JournalDetails handleDeleteJournal={handleDeleteJournal} />}/>
               <Route
               path='/journal/:journalId/edit'
