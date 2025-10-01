@@ -55,7 +55,6 @@ const JournalForm = (props) => {
     const handleSubmit = (evt) => {
         evt.preventDefault()
         if(journalId){
-            console.log(formData)
             props.handleUpdateJournal(journalId, formData);
         }else {
         props.handleAddJournal(formData)
@@ -173,7 +172,9 @@ const JournalForm = (props) => {
                     value={formData.notes}
                     onChange={handleChange}
                 />
-                <button type='submit'>Create Entry!</button>
+                <button type='submit'>
+                    {journalId ? 'Update Entry!' : 'Create Entry!'}
+                    </button>
             </form>
         </main>
     );
