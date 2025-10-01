@@ -1,6 +1,9 @@
 import { Link } from 'react-router'
 
 const JournalList = (props) => {
+    if (!Array.isArray(props.journals)) {
+    return <p>No journals available.</p>
+  }
     return (
         <main>
             {props.journals.map((journal) => (

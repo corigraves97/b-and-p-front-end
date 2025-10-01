@@ -1,4 +1,4 @@
-
+import axios from 'axios'
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/journal`
 
 import { useState, useEffect } from 'react';
@@ -7,6 +7,7 @@ import * as journalService from '../../services/journalService'
 
 const JournalForm = (props) => {
     const { journalId } = useParams()
+    const [ marketView, setMarketView ] = useState(null)
     //console.log(journalId)
     const [formData, setFormData] = useState({
         symbol: '',
@@ -20,23 +21,16 @@ const JournalForm = (props) => {
         executedDay: '',
         meta: '',
         notes: '',
-        marketSnapshot: { symbol: '' },
     });
-    const [symbols, setSymbols] = useState([]);
-
+    
     useEffect(() => {
-        const fetchSymbols = async () => {
-            try {
-                // hit backend overview route for a list of tickers
-                const res = await fetch("http://localhost:3000/api/overview?tickers=AAPL");
-                const data = await res.json();
-                setSymbols([data.Symbol]);
-            } catch (err) {
-                console.error("Error fetching symbols", err);
-            }
-        };
-        fetchSymbols();
-    }, [])
+        try{ 
+            axios.get('http://localhost:3000/api/shares')
+        } catch (err) {
+            console.log(err)
+        }
+    })
+
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -44,16 +38,10 @@ const JournalForm = (props) => {
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
-        const formattedData = {
-            ...formData,
-            timeOfDay: new Date(formData.timeOfDay),
-            executedDay: new Date(formData.executedDay),
-            shareSize: Number(formData.shareSize),
-            entry: Number(formData.entry),
-            exit: Number(formData.exit),
-            fees: formData.fees ? Number(formData.fees) : 0
-        }
-        props.handleAddJournal(formattedData)
+        console.log(formData)
+        props.handleAddJournal(formData)
+        
+        
     }
     return (
         <main>
@@ -115,20 +103,18 @@ const JournalForm = (props) => {
                     onChange={handleChange}
                 />
                 <label htmlFor='volume'>Volume:</label>
-                <select
-                    required
-                    name="volume"
-                    value={formData.volume}
-                    onChange={handleChange}
-                >
-                    <option value="1m - 5m">1m - 5m</option>
-                    <option value="10m - 20m">10m - 20m</option>
-                    <option value="30m - 40m">30m - 40m</option>
-                    <option value="50m - 70m">50m - 70m</option>
-                    <option value="80m - 100m">80m - 100m</option>
-                    <option value="120m - 150m">120m - 150m</option>
-                    <option value="160m - 180m">160m - 180m</option>
-                    <option value="200+m">200+m</option>
+                <select 
+                name="volume" 
+                value={formData.volume} 
+                onChange={handleChange}>
+                    <option value="1m-5m">1m-5m</option>
+                    <option value="10m-20m">10m-20m</option>
+                    <option value="30m-40m">30m-40m</option>
+                    <option value="50m-70m">50m-70m</option>
+                    <option value="80m-100m">80m-100m</option>
+                    <option value="120m-150m">120m-150m</option>
+                    <option value="160m-180m">160m-180m</option>
+                    <option value="200m+">200m+</option>
                 </select>
                 <label htmlFor='fees'>Fees:</label>
                 <input
@@ -166,24 +152,6 @@ const JournalForm = (props) => {
                     value={formData.notes}
                     onChange={handleChange}
                 />
-                <label htmlFor="market-snapshot">Market Snapshot Symbol:</label>
-                <select
-                    required
-                    name="marketSnapshot.symbol"
-                    id="marketSnapshot-input"
-                    value={formData.marketSnapshot.symbol}
-                    onChange={(evt) =>
-                        setFormData({
-                            ...formData,
-                            marketSnapshot: { ...formData.marketSnapshot, symbol: evt.target.value }
-                        })
-                    }
-                >
-                    <option value="">Select a symbol</option>
-                    {symbols.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                    ))}
-                </select>
                 <button type='submit'>Create Entry!</button>
             </form>
         </main>
