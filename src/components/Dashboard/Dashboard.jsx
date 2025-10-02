@@ -7,21 +7,56 @@ import { useEffect, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 
 import * as userService from '../../services/userService';
+import { useState } from 'react';
+
+
 
 const Dashboard = () => {
-  const { user } = useContext(UserContext);
 
- 
+  /* sudocode */
+  // fetch other users in the community
+  // display their usernames and number of journal entries
+  // fetch current user's journal entries
+  // display some analytics on the dashboard (number of trades, win rate, etc)
+  
+  const { user } = useContext(UserContext);
+  const [communityUsers, setCommunityUsers] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchCommunityUsers = async () => {
+      try {
+        const users = await userService.index();
+        setCommunityUsers(users);
+
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchCommunityUsers();
+  }, []);
+
+
+
+
 
   return (
     <body className="dashboard-body">
     <section className="dashboard-wrapper">
-      <h1 className="dashboard-header">Dashboard</h1>
-      <h2 className="dashboard-subheader"> Welcome to Bull & Paper.</h2>
-      <p className="dashboard-p">Click on "Create A New Entry" to get started! </p>
+      <h1 className="dashboard-header">Community Dashboard</h1>
       <div className="dashboard-cardsGrid">
-        {/* Dashboard content goes here */}
+        {/*community users go here */}
+        <> {communityUsers.map(user => (
+          <div key={user.id} className="dashboard-card">
+            <h3>{user.username}</h3> 
+          </div>
+        ))} </>
       </div>
+
+
+        {error && <p className="dashboard-error" role="alert">{error}</p>}
+
     </section>
     </body>
   );

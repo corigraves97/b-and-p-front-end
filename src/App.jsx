@@ -10,7 +10,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import JournalForm from './components/JournalForm/JournalForm'
 import { UserContext } from '../src/contexts/UserContext'
 import * as journalService from './services/journalService'
-
+import JournalDashboard from './components/Dashboard/journaldash'
 
 
 function App() {
@@ -63,6 +63,7 @@ function App() {
               path='/journal/:journalId/edit'
               element={<JournalForm handleUpdateJournal={handleUpdateJournal}/>}
             />
+            <Route path='/journal/analytics' element={<JournalDashboard />} />
           </>
         ) : (
           <>

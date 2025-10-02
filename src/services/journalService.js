@@ -1,6 +1,8 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/journal`
 
+//index
 const index = async () => {
+
     try {
         const res = await fetch(BASE_URL, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
@@ -13,7 +15,7 @@ const index = async () => {
         return []
     }
 }
-
+//show
 const show = async (journalId) => {
     try {
         const res = await fetch(`${BASE_URL}/${journalId}`, {
@@ -25,6 +27,8 @@ const show = async (journalId) => {
     }
 }
 
+
+//create
 const create = async (journalFormData) => {
     try {
         const res = await fetch(`${BASE_URL}/new`, {
