@@ -81,10 +81,6 @@ const JournalDetails = (props) => {
                 <Typography variant="body1">{journal.timeOfDay || '—'}</Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle2">Executed Day</Typography>
-                <Typography variant="body1">{journal.executedDay || '—'}</Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle2">Share Size</Typography>
                 <Typography variant="body1">{journal.shareSize}</Typography>
               </Grid>
