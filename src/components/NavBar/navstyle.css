@@ -59,6 +59,8 @@
     text-transform: uppercase;
     font-family: 'Story Script', cursive !important;
     text-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 
 .ul {
