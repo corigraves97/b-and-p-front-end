@@ -15,7 +15,7 @@
   --transition-speed: 220ms ease;
 }
 
-.analytics-body {
+.dashboard-body {
   min-height: 100vh;
   padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 4vw, 3rem);
   background: var(--journal-gradient);
@@ -28,8 +28,8 @@
   isolation: isolate;
 }
 
-.analytics-body::before,
-.analytics-body::after {
+.dashboard-body::before,
+.dashboard-body::after {
   content: "";
   position: absolute;
   inset: -20%;
@@ -40,7 +40,7 @@
   animation: floatGlow 18s linear infinite;
 }
 
-.analytics-body::after {
+.dashboard-body::after {
   background: radial-gradient(circle, rgba(255, 120, 200, 0.12) 0%, transparent 60%);
   animation-duration: 22s;
   animation-direction: reverse;
@@ -58,7 +58,7 @@
   }
 }
 
-.analytics-header {
+.dashboard-header {
   width: min(960px, 100%);
   padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
   text-align: center;
@@ -72,7 +72,7 @@
   overflow: hidden;
 }
 
-.analytics-header::after {
+.dashboard-header::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -80,7 +80,7 @@
   pointer-events: none;
 }
 
-.analytics-title {
+.dashboard-title {
   margin: 0;
   font-size: clamp(2rem, 4vw, 2.85rem);
   font-weight: 700;
@@ -88,7 +88,7 @@
   text-shadow: 0 12px 30px rgba(13, 27, 53, 0.65);
 }
 
-.analytics-subtitle {
+.dashboard-subtitle {
   margin: 0.75rem auto 0;
   font-size: clamp(1rem, 2.2vw, 1.15rem);
   color: var(--text-secondary);
@@ -96,7 +96,7 @@
   line-height: 1.6;
 }
 
-.analytics-main {
+.dashboard-main {
   width: min(1100px, 100%);
   display: grid;
   gap: clamp(1.75rem, 3vw, 2.5rem);
@@ -108,7 +108,7 @@
   gap: 1.5rem;
 }
 
-.analytics-list {
+.journal-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -117,7 +117,7 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-.analytics-item {
+.journal-item {
   background: var(--glass-bg);
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--glass-border);
@@ -130,7 +130,7 @@
   transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
 }
 
-.analytics-item::before {
+.journal-item::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -149,17 +149,17 @@
   transition: opacity var(--transition-speed);
 }
 
-.analytics-item:hover {
+.journal-item:hover {
   transform: translateY(-6px);
   box-shadow: 0 30px 60px -25px rgba(70, 140, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.18);
 }
 
-.analytics-item:hover::before {
+.journal-item:hover::before {
   opacity: 0.85;
 }
 
-.analytics-entry-title {
+.journal-entry-title {
   font-size: clamp(1.4rem, 2.5vw, 1.65rem);
   margin: 0 0 0.35rem;
   font-weight: 600;
@@ -167,7 +167,7 @@
   text-transform: uppercase;
 }
 
-.analytics-entry-outcome {
+.journal-entry-outcome {
   margin: 0.35rem 0;
   font-size: 0.95rem;
   color: var(--text-secondary);
@@ -206,7 +206,7 @@
   line-height: 1.5;
 }
 
-.analytics-section1 {
+.analytics-section {
   width: min(960px, 100%);
   margin: 0 auto clamp(2rem, 4vw, 3.5rem);
   padding: clamp(1.75rem, 3vw, 2.5rem);
@@ -219,13 +219,13 @@
   box-shadow: var(--card-shadow);
 }
 
-.analytics-title1 {
+.analytics-title {
   font-size: clamp(1.3rem, 3vw, 1.75rem);
   margin-bottom: 0.65rem;
   color: var(--text-primary);
 }
 
-.analytics-description1 {
+.analytics-description {
   font-size: 1rem;
   max-width: 52ch;
   margin: 0 auto;
@@ -233,30 +233,30 @@
 }
 
 @media (max-width: 900px) {
-  .analytics-body {
+  .dashboard-body {
     padding: 2.5rem 1.5rem;
   }
 
-  .analytics-main {
+  .dashboard-main {
     gap: 1.75rem;
   }
 
-  .analytics-entry-outcome {
+  .journal-entry-outcome {
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
 @media (max-width: 600px) {
-  .analytics-header {
+  .dashboard-header {
     padding: 1.6rem;
   }
 
-  .analytics-list {
+  .journal-list {
     grid-template-columns: 1fr;
   }
 
-  .analytics-item {
+  .journal-item {
     padding: 1.35rem 1.25rem;
   }
 }

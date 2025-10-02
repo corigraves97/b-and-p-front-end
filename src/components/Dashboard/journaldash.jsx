@@ -31,30 +31,30 @@ const JournalDashboard = () => {
   const journals = journalData || [];
 
   return (
-    <main className="analytics-body">
-      <header className="analytics-header">
-        <h1 className="analytics-title">{user.username}'s Trading Journal </h1>
-        <p className="analytics-subtitle">Track your trades, analyze performance, and gain insights.</p>
+    <main className="dashboard-body">
+      <header className="dashboard-header">
+        <h1 className="dashboard-title">{user.username}'s Trading Journal </h1>
+        <p className="dashboard-subtitle">Track your trades, analyze performance, and gain insights.</p>
       </header>
-      <section className="analytics-main">
+      <section className="dashboard-main">
         <section className="journal-list-section">
-          <ul className="analytics-list">
+          <ul className="journal-list">
             {journals.length > 0 ? (
               journals.map((journal) => {
                 const overview = journal.marketSnapshot?.overview ?? [];
 
                 return (
                   <li key={journal._id || journal.id} className="journal-item">
-                    <h2 className="analytics-entry-title">{journal.symbol}</h2>
-                    <p className="analytics-entry-outcome">{journal.side}</p>
-                    <p className="analytics-entry-outcome">{journal.timeOfDay}</p>
-                    <p className="analytics-entry-outcome">Share Size: {journal.shareSize}</p>
-                    <p className="analytics-entry-outcome">Entry: ${journal.entry}</p>
-                    <p className="analytics-entry-outcome">Exit: ${journal.exit}</p>
-                    <p className="analytics-entry-outcome">Volume: {journal.volume}</p>
-                    <p className="analytics-entry-outcome">Fees: {journal.fees}</p>
-                    <p className="analytics-entry-outcome">Date: {journal.executedDay}</p>
-                    <p className="analytics-entry-outcome">Notes: {journal.notes}</p>
+                    <h2 className="journal-entry-title">{journal.symbol}</h2>
+                    <p className="journal-entry-outcome">{journal.side}</p>
+                    <p className="journal-entry-outcome">{journal.timeOfDay}</p>
+                    <p className="journal-entry-outcome">Share Size: {journal.shareSize}</p>
+                    <p className="journal-entry-outcome">Entry: ${journal.entry}</p>
+                    <p className="journal-entry-outcome">Exit: ${journal.exit}</p>
+                    <p className="journal-entry-outcome">Volume: {journal.volume}</p>
+                    <p className="journal-entry-outcome">Fees: {journal.fees}</p>
+                    <p className="journal-entry-outcome">Date: {journal.executedDay}</p>
+                    <p className="journal-entry-outcome">Notes: {journal.notes}</p>
 
                     <ul className="market">
                       {overview.length ? (
@@ -92,14 +92,14 @@ const JournalDashboard = () => {
         </section>
       </section>
 
-      <section className="analytics1-section">
-        <h2 className="analytics1-title">Analytics Overview</h2>
-        <p className="analytics1-description">Coming soon: Visualize your trading performance with charts and graphs.</p>
+      <section className="analytics-section">
+        <h2 className="analytics-title">Analytics Overview</h2>
+        <p className="analytics-description">Coming soon: Visualize your trading performance with charts and graphs.</p>
       </section>
       
-      <section className="analytics1-section">
-        <h2 className="analytics1-title">Performance Metrics</h2>
-        <p className="analytics1-description">Coming soon: Key metrics to evaluate your trading success.</p>
+      <section className="analytics-section">
+        <h2 className="analytics-title">Performance Metrics</h2>
+        <p className="analytics-description">Coming soon: Key metrics to evaluate your trading success.</p>
       </section>
     </main>
   );
