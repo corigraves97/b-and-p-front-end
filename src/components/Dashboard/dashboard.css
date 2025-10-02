@@ -70,14 +70,7 @@ h1 {
  width: 10px;
 }
 
-.dashboard-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.75rem, 5vw, 3.6rem);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin: 0;
-  text-shadow: 0 18px 40px rgba(15, 23, 42, 0.4);
-}
+
 
 .dashboard-subheader {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem);
