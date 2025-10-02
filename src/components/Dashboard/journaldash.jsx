@@ -51,7 +51,6 @@ const JournalDashboard = (props) => {
                   <p className="journal-entry-outcome">Fees: {journal.fees}</p>
                   <p className="journal-entry-outcome">Date: {journal.executedDay}</p>
                   <p className="journal-entry-outcome">Notes: {journal.notes}</p>
-                  <p className="journal-entry-market">Market Snapshot: {journal.marketSnapshot}</p>
                 </li>
               ))
             ) : (
