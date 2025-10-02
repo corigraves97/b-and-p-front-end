@@ -29,8 +29,9 @@ const NavBar = () => {
         <nav className="nav">
             { user ? (
                 <ul className="ul">
-                    <li className="Li"><Link className="link" to='/'>Dashboard</Link></li>
-                    <li className="Li"><Link className="link" to='/journal'>My Journals</Link></li>
+                    <li className="Li"><Link className="link" to='/'>Community</Link></li>
+                    <li className="Li"><Link className="link" to='/journal'>My Trades</Link></li>
+                    <li className="Li"><Link className="link" to='/journal/analytics'>Analytics</Link></li>
                     <li className="Li"><Link className="link" to='/journal/new'>Create a New Entry</Link></li>
                     <li className="Li"><Link className="link" to='/' onClick={handleSignOut}>Sign Out</Link></li>
                </ul>
