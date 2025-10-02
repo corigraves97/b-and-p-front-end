@@ -1,16 +1,28 @@
-# React + Vite
+# BULL & PAPER
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![A digital trading journal](../bull-and-paper-front-end/public//assets/landing%20page.png)
+###### Image: A landing page welcoming users to Bull & Paper prompting them to sign up or sign in.
 
-Currently, two official plugins are available:
+## Background:
+Bull & Paper came about when a couple of the developers got together and realized we had a shared interest in trading. We decided what would be useful for us is an app that could track the trades we are making daily, returning profit loss data to see where us traders can grow our earnings and which trades to avoid.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started:
 
-## React Compiler
+Sign up or login in and create a new trade entry and see your data populate live. Keep track of your trades by visiting your journal to see them all lined up and update or delete as you see fit. 
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Planning Materials:
 
-## Expanding the ESLint configuration
+[Trello Board](https://trello.com/b/3k0rOh9s/bull-paper)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+[Deployed Site]()
+
+## Attributes:
+
+*_CSS Styling_:
+ [MUI](https://www.muicss.com/),
+ [Libre Baskerville Font](https://fonts.google.com/specimen/Libre+Baskerville), Flexbox, CSS Grid
+
+*_Technologies Used_: Express, EJS, CSS, JS, Mongoose, Morgan, Dotenv, Node.js, bCrypt, React, MUI
+
+*_Planned Future Enhancements_: Provide a community so you can interact with other users and their trades. 
+
