@@ -15,7 +15,7 @@
   --transition-speed: 220ms ease;
 }
 
-.dashboard-body {
+.analytics-body {
   min-height: 100vh;
   padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 4vw, 3rem);
   background: var(--journal-gradient);
@@ -28,8 +28,8 @@
   isolation: isolate;
 }
 
-.dashboard-body::before,
-.dashboard-body::after {
+.analytics-body::before,
+.analytics-body::after {
   content: "";
   position: absolute;
   inset: -20%;
@@ -40,7 +40,7 @@
   animation: floatGlow 18s linear infinite;
 }
 
-.dashboard-body::after {
+.analytics-body::after {
   background: radial-gradient(circle, rgba(255, 120, 200, 0.12) 0%, transparent 60%);
   animation-duration: 22s;
   animation-direction: reverse;
@@ -58,7 +58,7 @@
   }
 }
 
-.dashboard-header {
+.analytics-header {
   width: min(960px, 100%);
   padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
   text-align: center;
@@ -72,7 +72,7 @@
   overflow: hidden;
 }
 
-.dashboard-header::after {
+.analytics-header::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -80,7 +80,7 @@
   pointer-events: none;
 }
 
-.dashboard-title {
+.analytics-title {
   margin: 0;
   font-size: clamp(2rem, 4vw, 2.85rem);
   font-weight: 700;
@@ -88,7 +88,7 @@
   text-shadow: 0 12px 30px rgba(13, 27, 53, 0.65);
 }
 
-.dashboard-subtitle {
+.analytics-subtitle {
   margin: 0.75rem auto 0;
   font-size: clamp(1rem, 2.2vw, 1.15rem);
   color: var(--text-secondary);
@@ -96,7 +96,7 @@
   line-height: 1.6;
 }
 
-.dashboard-main {
+.analytics-main {
   width: min(1100px, 100%);
   display: grid;
   gap: clamp(1.75rem, 3vw, 2.5rem);
@@ -117,7 +117,7 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-.journal-item {
+.analytics-item {
   background: var(--glass-bg);
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--glass-border);
@@ -130,7 +130,7 @@
   transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
 }
 
-.journal-item::before {
+.analytics-item::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -149,13 +149,13 @@
   transition: opacity var(--transition-speed);
 }
 
-.journal-item:hover {
+.analytics-item:hover {
   transform: translateY(-6px);
   box-shadow: 0 30px 60px -25px rgba(70, 140, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.18);
 }
 
-.journal-item:hover::before {
+.analyticsl-item:hover::before {
   opacity: 0.85;
 }
 
@@ -206,7 +206,7 @@
   line-height: 1.5;
 }
 
-.analytics-section {
+.analytics1-section {
   width: min(960px, 100%);
   margin: 0 auto clamp(2rem, 4vw, 3.5rem);
   padding: clamp(1.75rem, 3vw, 2.5rem);
@@ -219,13 +219,13 @@
   box-shadow: var(--card-shadow);
 }
 
-.analytics-title {
+.analytics1-title {
   font-size: clamp(1.3rem, 3vw, 1.75rem);
   margin-bottom: 0.65rem;
   color: var(--text-primary);
 }
 
-.analytics-description {
+.analytics1-description {
   font-size: 1rem;
   max-width: 52ch;
   margin: 0 auto;
@@ -233,11 +233,11 @@
 }
 
 @media (max-width: 900px) {
-  .dashboard-body {
+  .analytics-body {
     padding: 2.5rem 1.5rem;
   }
 
-  .dashboard-main {
+  .analytics-main {
     gap: 1.75rem;
   }
 

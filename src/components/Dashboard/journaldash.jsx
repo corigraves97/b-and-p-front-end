@@ -31,12 +31,12 @@ const JournalDashboard = () => {
   const journals = journalData || [];
 
   return (
-    <main className="dashboard-body">
-      <header className="dashboard-header">
-        <h1 className="dashboard-title">{user.username}'s Trading Journal </h1>
-        <p className="dashboard-subtitle">Track your trades, analyze performance, and gain insights.</p>
+    <main className="analytics-body">
+      <header className="analytics-header">
+        <h1 className="analytics-title">{user.username}'s Trading Journal </h1>
+        <p className="analytics-subtitle">Track your trades, analyze performance, and gain insights.</p>
       </header>
-      <section className="dashboard-main">
+      <section className="analytics-main">
         <section className="journal-list-section">
           <ul className="journal-list">
             {journals.length > 0 ? (
@@ -92,14 +92,14 @@ const JournalDashboard = () => {
         </section>
       </section>
 
-      <section className="analytics-section">
-        <h2 className="analytics-title">Analytics Overview</h2>
+      <section className="analytics1-section">
+        <h2 className="analytics1-title">Analytics Overview</h2>
         <p className="analytics-description">Coming soon: Visualize your trading performance with charts and graphs.</p>
       </section>
       
-      <section className="analytics-section">
-        <h2 className="analytics-title">Performance Metrics</h2>
-        <p className="analytics-description">Coming soon: Key metrics to evaluate your trading success.</p>
+      <section className="analytics1-section">
+        <h2 className="analytics1-title">Performance Metrics</h2>
+        <p className="analytics1-description">Coming soon: Key metrics to evaluate your trading success.</p>
       </section>
     </main>
   );
