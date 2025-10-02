@@ -96,6 +96,11 @@ const JournalDashboard = () => {
         <h2 className="analytics-title">Analytics Overview</h2>
         <p className="analytics-description">Coming soon: Visualize your trading performance with charts and graphs.</p>
       </section>
+      
+      <section className="analytics-section">
+        <h2 className="analytics-title">Performance Metrics</h2>
+        <p className="analytics-description">Coming soon: Key metrics to evaluate your trading success.</p>
+      </section>
     </main>
   );
 };

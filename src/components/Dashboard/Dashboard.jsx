@@ -37,7 +37,7 @@ const Dashboard = () => {
 
 
   return (
-    <body className="dashboard-body">
+    <main className="dashboard-body">
     <section className="dashboard-wrapper">
       <h1 className="dashboard-header">Community Dashboard</h1>
       <div className="dashboard-cardsGrid">
@@ -52,7 +52,7 @@ const Dashboard = () => {
         {error && <p className="dashboard-error" role="alert">{error}</p>}
 
     </section>
-    </body>
+    </main>
   );
 };
 
