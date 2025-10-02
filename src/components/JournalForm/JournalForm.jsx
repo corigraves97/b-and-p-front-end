@@ -23,12 +23,13 @@ import {
 
 const DEFAULT_SIDE = 'long'
 const DEFAULT_VOLUME = '1m-5m'
+const DEFAULT_TIMEOFDAY = 'AM'
 
 const EMPTY_FORM = {
     userId: '',
     symbol: '',
     side: DEFAULT_SIDE,
-    timeOfDay: '',
+    timeOfDay: DEFAULT_TIMEOFDAY,
     shareSize: '',
     entry: '',
     exit: '',
@@ -56,6 +57,11 @@ const VOLUME_OPTIONS = [
     { value: '120m-150m', label: '120m - 150m' },
     { value: '160m-180m', label: '160m - 180m' },
     { value: '200m+', label: '200m+' },
+]
+
+const TOD_OPTIONS = [
+    {value: 'AM', label: 'AM'},
+    {value: 'PM', label: 'PM'},
 ]
 
 const INFO_LINKS = {
@@ -169,9 +175,7 @@ const JournalForm = (props) => {
                         userId: response.userId || '',
                         symbol: normalizedSymbol,
                         side: response.side || DEFAULT_SIDE,
-                        timeOfDay: response.timeOfDay
-                            ? Date(response.timeOfDay)
-                            : '',
+                        timeOfDay: response.timeOfDay,
                         shareSize: toStringValue(response.shareSize),
                         entry: toStringValue(response.entry),
                         exit: toStringValue(response.exit),
@@ -427,16 +431,21 @@ const JournalForm = (props) => {
                                                 </Grid>
                                                 <Grid item xs={12} sm={6}>
                                                     <TextField
+                                                        select
                                                         required
-                                                        type="time"
-                                                        id="date"
-                                                        label="Time of day"
+                                                        label="Time"
                                                         name="timeOfDay"
                                                         value={formData.timeOfDay}
                                                         onChange={handleChange}
                                                         sx={textFieldStyles}
-                                                        InputLabelProps={{ shrink: true }}
-                                                    />
+                                                        
+                                                    >
+                                                    {TOD_OPTIONS.map((option) => (
+                                                            <MenuItem key={option.value} value={option.value}>
+                                                                {option.label}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </TextField>
                                                 </Grid>
                                                 <Grid item xs={12} sm={6}>
                                                     <TextField

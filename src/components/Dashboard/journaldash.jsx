@@ -84,6 +84,7 @@ const JournalDashboard = () => {
                   </li>
                 );
               })
+
             ) : (
               <p className="no-journals-message">You have no journal entries yet. Start by creating a new entry!</p>
             )}

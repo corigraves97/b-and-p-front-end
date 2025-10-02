@@ -6,6 +6,8 @@
 ## Background:
 Bull & Paper came about when a couple of the developers got together and realized we had a shared interest in trading. We decided what would be useful for us is an app that could track the trades we are making daily, returning profit loss data to see where us traders can grow our earnings and which trades to avoid.
 
+Developers: Cori Graves, Kiesha Walker, Paul Kniaz
+
 ## Getting Started:
 
 Sign up or login in and create a new trade entry and see your data populate live. Keep track of your trades by visiting your journal to see them all lined up and update or delete as you see fit. 
@@ -24,5 +26,5 @@ Sign up or login in and create a new trade entry and see your data populate live
 
 *_Technologies Used_: Express, EJS, CSS, JS, Mongoose, Morgan, Dotenv, Node.js, bCrypt, React, MUI
 
-*_Planned Future Enhancements_: Provide a community so you can interact with other users and their trades. 
+*_Planned Future Enhancements_: Visualizing your trading performance with charts and graphs. 
 

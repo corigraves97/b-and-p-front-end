@@ -66,7 +66,7 @@ const Landing = () => {
               <Button
                 variant="contained"
                 component={RouterLink}
-                to="/signup"
+                to="/sign-up"
                 sx={{
                   px: 4,
                   borderRadius: 999,
@@ -78,7 +78,7 @@ const Landing = () => {
               <Button
                 variant="outlined"
                 component={RouterLink}
-                to="/signin"
+                to="/sign-in"
                 sx={{
                   px: 4,
                   borderRadius: 999,
