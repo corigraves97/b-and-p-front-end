@@ -39,7 +39,7 @@ const Dashboard = () => {
   return (
     <main className="dashboard1-body">
     <section className="dashboard1-wrapper">
-      <h1 className="dashboard1-header">Community </h1>
+      <h1 className="dashboard1-header">Community Dashboard</h1>
       <div className="dashboard1-cardsGrid">
         <> {communityUsers.map(user => (
           <div key={user.id} className="dashboard1-card">

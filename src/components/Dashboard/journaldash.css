@@ -1,11 +1,10 @@
 
 :root {
   --journal-gradient: radial-gradient(circle at 0% 0%, rgba(90, 162, 255, 0.35), transparent 55%),
-    radial-gradient(circle at 100% 0%, rgba(255, 105, 180, 0.25), transparent 45%),
-    linear-gradient(135deg, #0b1220 0%, #111b33 45%, #090f1a 100%);
+                     radial-gradient(circle at 100% 0%, rgba(255, 105, 180, 0.25), transparent 45%),
+                     linear-gradient(135deg, #0b1220 0%, #111b33 45%, #090f1a 100%);
   --glass-bg: rgba(15, 25, 45, 0.55);
   --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-glow: rgba(76, 201, 240, 0.45);
   --text-primary: #f7f9ff;
   --text-secondary: rgba(215, 225, 255, 0.75);
   --accent: linear-gradient(135deg, #5a9bff, #9b68ff, #ff6fb1);
