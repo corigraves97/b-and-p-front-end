@@ -170,7 +170,7 @@ const JournalForm = (props) => {
                         symbol: normalizedSymbol,
                         side: response.side || DEFAULT_SIDE,
                         timeOfDay: response.timeOfDay
-                            ? new Date(response.timeOfDay).toISOString().substring(11, 16)
+                            ? Date(response.timeOfDay)
                             : '',
                         shareSize: toStringValue(response.shareSize),
                         entry: toStringValue(response.entry),
@@ -178,7 +178,7 @@ const JournalForm = (props) => {
                         volume: response.volume || DEFAULT_VOLUME,
                         fees: toStringValue(response.fees),
                         executedDay: response.executedDay
-                            ? new Date(response.executedDay).toISOString().substring(0, 10)
+                            ? Date(response.executedDay)
                             : '',
                         meta: response.meta || '',
                         notes: response.notes || '',
@@ -429,6 +429,7 @@ const JournalForm = (props) => {
                                                     <TextField
                                                         required
                                                         type="time"
+                                                        id="date"
                                                         label="Time of day"
                                                         name="timeOfDay"
                                                         value={formData.timeOfDay}
