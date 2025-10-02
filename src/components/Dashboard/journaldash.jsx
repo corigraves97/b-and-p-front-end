@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { UserContext } from '../../contexts/UserContext';
 
-import './journaldash.css';
+import './journaldash.css'
 
 import * as journalService from '../../services/journalService';
 

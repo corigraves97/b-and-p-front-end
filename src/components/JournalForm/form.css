@@ -119,12 +119,13 @@ body {
     transform: translateY(-2px);
 }
 
-.journal-form .MuiButton-root {
+.journal-form .MuiButton-root 
 .MuiGrid-root.MuiGrid-container.MuiGrid-direction-xs-row.MuiGrid-spacing-xs-3.MuiGrid-spacing-md-4.css-13x7hyy-MuiGrid-root {
 
 
     width: auto;
 }
+
 .MuiGrid-root.MuiGrid-direction-xs-row.css-17fpwt7-MuiGrid-root {
     width: auto;
     position: relative;
