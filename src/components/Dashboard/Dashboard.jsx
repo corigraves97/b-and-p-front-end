@@ -18,7 +18,7 @@ const Dashboard = () => {
     <section className="dashboard-wrapper">
       <h1 className="dashboard-header">Dashboard</h1>
       <h2 className="dashboard-subheader"> Welcome to Bull & Paper.</h2>
-      <p className="dashboard-p">Click on "Create A New Journal Entry" to get started! </p>
+      <p className="dashboard-p">Click on "Create A New Entry" to get started! </p>
       <div className="dashboard-cardsGrid">
         {/* Dashboard content goes here */}
       </div>
