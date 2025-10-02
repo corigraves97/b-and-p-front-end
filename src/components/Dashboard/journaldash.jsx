@@ -38,7 +38,7 @@ const JournalDashboard = () => {
       </header>
       <section className="analytics-main">
         <section className="journal-list-section">
-          <ul className="journal-list">
+          <ul className="analytics-list">
             {journals.length > 0 ? (
               journals.map((journal) => {
                 const overview = journal.marketSnapshot?.overview ?? [];
@@ -92,14 +92,14 @@ const JournalDashboard = () => {
         </section>
       </section>
 
-      <section className="analytics-section">
-        <h2 className="analytics-title">Analytics Overview</h2>
-        <p className="analytics-description">Coming soon: Visualize your trading performance with charts and graphs.</p>
+      <section className="analytics1-section">
+        <h2 className="analytics1-title">Analytics Overview</h2>
+        <p className="analytics1-description">Coming soon: Visualize your trading performance with charts and graphs.</p>
       </section>
       
-      <section className="analytics-section">
-        <h2 className="analytics-title">Performance Metrics</h2>
-        <p className="analytics-description">Coming soon: Key metrics to evaluate your trading success.</p>
+      <section className="analytics1-section">
+        <h2 className="analytics1-title">Performance Metrics</h2>
+        <p className="analytics1-description">Coming soon: Key metrics to evaluate your trading success.</p>
       </section>
     </main>
   );

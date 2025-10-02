@@ -108,7 +108,7 @@
   gap: 1.5rem;
 }
 
-.journal-list {
+.analytics-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -206,7 +206,7 @@
   line-height: 1.5;
 }
 
-.analytics-section {
+.analytics-section1 {
   width: min(960px, 100%);
   margin: 0 auto clamp(2rem, 4vw, 3.5rem);
   padding: clamp(1.75rem, 3vw, 2.5rem);
@@ -219,13 +219,13 @@
   box-shadow: var(--card-shadow);
 }
 
-.analytics-title {
+.analytics-title1 {
   font-size: clamp(1.3rem, 3vw, 1.75rem);
   margin-bottom: 0.65rem;
   color: var(--text-primary);
 }
 
-.analytics-description {
+.analytics-description1 {
   font-size: 1rem;
   max-width: 52ch;
   margin: 0 auto;
@@ -233,30 +233,30 @@
 }
 
 @media (max-width: 900px) {
-  .dashboard-body {
+  .analytics-body {
     padding: 2.5rem 1.5rem;
   }
 
-  .dashboard-main {
+  .analytics-main {
     gap: 1.75rem;
   }
 
-  .journal-entry-outcome {
+  .analytics-entry-outcome {
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
 @media (max-width: 600px) {
-  .dashboard-header {
+  .analytics-header {
     padding: 1.6rem;
   }
 
-  .journal-list {
+  .analytics-list {
     grid-template-columns: 1fr;
   }
 
-  .journal-item {
+  .analytics-item {
     padding: 1.35rem 1.25rem;
   }
 }
