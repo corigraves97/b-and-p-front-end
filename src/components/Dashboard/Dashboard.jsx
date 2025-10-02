@@ -13,11 +13,6 @@ import { useState } from 'react';
 
 const Dashboard = () => {
 
-  /* sudocode */
-  // fetch other users in the community
-  // display their usernames and number of journal entries
-  // fetch current user's journal entries
-  // display some analytics on the dashboard (number of trades, win rate, etc)
   
   const { user } = useContext(UserContext);
   const [communityUsers, setCommunityUsers] = useState([]);
@@ -46,7 +41,6 @@ const Dashboard = () => {
     <section className="dashboard-wrapper">
       <h1 className="dashboard-header">Community Dashboard</h1>
       <div className="dashboard-cardsGrid">
-        {/*community users go here */}
         <> {communityUsers.map(user => (
           <div key={user.id} className="dashboard-card">
             <h3>{user.username}</h3> 
