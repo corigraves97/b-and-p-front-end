@@ -117,7 +117,7 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-.journal-item {
+.analytics-item {
   background: var(--glass-bg);
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--glass-border);
@@ -130,7 +130,7 @@
   transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
 }
 
-.journal-item::before {
+.analytics-item::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -149,17 +149,17 @@
   transition: opacity var(--transition-speed);
 }
 
-.journal-item:hover {
+.analytics-item:hover {
   transform: translateY(-6px);
   box-shadow: 0 30px 60px -25px rgba(70, 140, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.18);
 }
 
-.journal-item:hover::before {
+.analytics-item:hover::before {
   opacity: 0.85;
 }
 
-.journal-entry-title {
+.analytics-entry-title {
   font-size: clamp(1.4rem, 2.5vw, 1.65rem);
   margin: 0 0 0.35rem;
   font-weight: 600;
@@ -167,7 +167,7 @@
   text-transform: uppercase;
 }
 
-.journal-entry-outcome {
+.analytics-entry-outcome {
   margin: 0.35rem 0;
   font-size: 0.95rem;
   color: var(--text-secondary);
