@@ -37,19 +37,19 @@ const Dashboard = () => {
 
 
   return (
-    <main className="dashboard-body">
-    <section className="dashboard-wrapper">
-      <h1 className="dashboard-header">Community Dashboard</h1>
-      <div className="dashboard-cardsGrid">
+    <main className="dashboard1-body">
+    <section className="dashboard1-wrapper">
+      <h1 className="dashboard1-header">Community </h1>
+      <div className="dashboard1-cardsGrid">
         <> {communityUsers.map(user => (
-          <div key={user.id} className="dashboard-card">
+          <div key={user.id} className="dashboard1-card">
             <h3>{user.username}</h3> 
           </div>
         ))} </>
       </div>
 
 
-        {error && <p className="dashboard-error" role="alert">{error}</p>}
+        {error && <p className="dashboard1-error" role="alert">{error}</p>}
 
     </section>
     </main>

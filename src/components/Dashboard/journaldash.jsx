@@ -37,24 +37,24 @@ const JournalDashboard = () => {
         <p className="analytics-subtitle">Track your trades, analyze performance, and gain insights.</p>
       </header>
       <section className="analytics-main">
-        <section className="journal-list-section">
-          <ul className="journal-list">
+        <section className="analytics-list-section">
+          <ul className="analytics-list">
             {journals.length > 0 ? (
               journals.map((journal) => {
                 const overview = journal.marketSnapshot?.overview ?? [];
 
                 return (
-                  <li key={journal._id || journal.id} className="journal-item">
-                    <h2 className="journal-entry-title">{journal.symbol}</h2>
-                    <p className="journal-entry-outcome">{journal.side}</p>
-                    <p className="journal-entry-outcome">{journal.timeOfDay}</p>
-                    <p className="journal-entry-outcome">Share Size: {journal.shareSize}</p>
-                    <p className="journal-entry-outcome">Entry: ${journal.entry}</p>
-                    <p className="journal-entry-outcome">Exit: ${journal.exit}</p>
-                    <p className="journal-entry-outcome">Volume: {journal.volume}</p>
-                    <p className="journal-entry-outcome">Fees: {journal.fees}</p>
-                    <p className="journal-entry-outcome">Date: {journal.executedDay}</p>
-                    <p className="journal-entry-outcome">Notes: {journal.notes}</p>
+                  <li key={journal._id || journal.id} className="analytics-item">
+                    <h2 className="analytics-entry-title">{journal.symbol}</h2>
+                    <p className="analytics-entry-outcome">{journal.side}</p>
+                    <p className="analytics-entry-outcome">{journal.timeOfDay}</p>
+                    <p className="analytics-entry-outcome">Share Size: {journal.shareSize}</p>
+                    <p className="analytics-entry-outcome">Entry: ${journal.entry}</p>
+                    <p className="analytics-entry-outcome">Exit: ${journal.exit}</p>
+                    <p className="analytics-entry-outcome">Volume: {journal.volume}</p>
+                    <p className="analytics-entry-outcome">Fees: {journal.fees}</p>
+                    <p className="analytics-entry-outcome">Date: {journal.executedDay}</p>
+                    <p className="analytics-entry-outcome">Notes: {journal.notes}</p>
 
                     <ul className="market">
                       {overview.length ? (
