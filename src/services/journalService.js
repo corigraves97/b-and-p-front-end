@@ -1,10 +1,11 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/journal`
 
 //index
-const index = async () => {
+const index = async ({ signal } = {}) => {
 
     try {
         const res = await fetch(BASE_URL, {
+      signal,
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
         })
         const data = await res.json()
@@ -76,6 +77,19 @@ const updateJournal = async (journalId, journalFormData) => {
     console.log(error);
   }
 }
+
+// here we will grab the saved marketSnapshotSchema from the backend to display on the dashboard
+// sudocode 
+// const getMarketSnapshot = async (journalId) => {
+//   try {
+//     const res = await fetch(`${BASE_URL}/${journalId}/market-snapshot`, {
+//       headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+//     });
+//     return res.json();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export {
     index,
