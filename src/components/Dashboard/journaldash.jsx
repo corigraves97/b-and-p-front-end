@@ -31,12 +31,12 @@ const JournalDashboard = () => {
   const journals = journalData || [];
 
   return (
-    <main className="dashboard-body">
-      <header className="dashboard-header">
-        <h1 className="dashboard-title">{user.username}'s Trading Journal </h1>
-        <p className="dashboard-subtitle">Track your trades, analyze performance, and gain insights.</p>
+    <main className="analytics-body">
+      <header className="analytics-header">
+        <h1 className="analytics-title">{user.username}'s Trading Journal </h1>
+        <p className="analytics-subtitle">Track your trades, analyze performance, and gain insights.</p>
       </header>
-      <section className="dashboard-main">
+      <section className="analytics-main">
         <section className="journal-list-section">
           <ul className="journal-list">
             {journals.length > 0 ? (
