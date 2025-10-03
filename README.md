@@ -18,6 +18,8 @@ Sign up or login in and create a new trade entry and see your data populate live
 
 [Deployed Site](https://bull-and-paper.netlify.app/)
 
+[Front End Repository](https://github.com/corigraves97/b-and-p-front-end.git)
+
 ## Attributes:
 
 *_CSS Styling_:
